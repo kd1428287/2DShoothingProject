@@ -44,7 +44,7 @@ void RenderManager::BackDraw()
     {
         SHADER.m_spriteShader.SetMatrix(i->mat);
         SHADER.m_spriteShader.SetFlashValue(i->flashValue);
-        SHADER.m_spriteShader.DrawTex_color(i->tex, Math::Rectangle(i->rectPos.x, i->rectPos.y, i->size.x, i->size.y), i->clr);
+        SHADER.m_spriteShader.DrawTex_color(i->tex, Math::Rectangle(i->rectPosition.x, i->rectPosition.y, i->size.x, i->size.y), i->color);
     }
 
     // ‰ÁZ•`‰æ (Add) - ‹«ŠE iterator ˆÈ~‚É true ‚ªW‚Ü‚Á‚Ä‚¢‚é
@@ -55,7 +55,7 @@ void RenderManager::BackDraw()
         {
             SHADER.m_spriteShader.SetMatrix(i->mat);
             SHADER.m_spriteShader.SetFlashValue(i->flashValue);
-            SHADER.m_spriteShader.DrawTex_color(i->tex, Math::Rectangle(i->rectPos.x, i->rectPos.y, i->size.x, i->size.y), i->clr);
+            SHADER.m_spriteShader.DrawTex_color(i->tex, Math::Rectangle(i->rectPosition.x, i->rectPosition.y, i->size.x, i->size.y), i->color);
         }
         D3D.SetBlendState(BlendMode::Alpha); // ó‘Ô‚ğ–ß‚·
     }

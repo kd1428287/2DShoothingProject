@@ -1,6 +1,6 @@
 #pragma once
 
-struct RendData;
+#include"RendData.h";
 
 class RenderManager
 {
