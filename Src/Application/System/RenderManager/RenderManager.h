@@ -1,0 +1,35 @@
+#pragma once
+
+struct RendData;
+
+class RenderManager
+{
+public:
+
+	static RenderManager& Instance();
+
+	void DrawSprite();
+	
+	void Submit(RendData queue);
+
+	void BlackoutRatio(float ratio);	// 0 ~ 1
+
+
+private:
+	RenderManager() {}
+
+	void BackgroundDraw();
+
+	void BackDraw();
+	void MiddleDraw();
+	void FrontDraw();
+
+	void UIDraw();
+
+	std::vector<RendData> backQueue;
+	std::vector<RendData> middleQueue;
+	std::vector<RendData> frontQueue;
+	std::vector<RendData> UIQueue;
+
+};
+#define RENDERM RenderManager::Instance()
