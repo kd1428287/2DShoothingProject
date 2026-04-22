@@ -3,11 +3,36 @@
 
 void RenderManager::DrawSprite()
 {
+    BackgroundDraw();
+
+    DrawQueue(backQueue);
+    DrawQueue(middleQueue);
+    DrawQueue(frontQueue);
+    DrawQueue(UIQueue);
+
 
 }
 
 void RenderManager::Submit(RendData queue)
 {
+    switch (queue.target)
+    {
+    case DrawTarget::back:
+        backQueue.push_back(queue);
+        break;
+    case DrawTarget::middle:
+        middleQueue.push_back(queue);
+        break;
+    case DrawTarget::front:
+        frontQueue.push_back(queue);
+        break;
+    case DrawTarget::UI:
+        UIQueue.push_back(queue);
+        break;
+
+    default:
+        break;
+    }
 }
 
 void RenderManager::BlackoutRatio(float ratio)
@@ -18,11 +43,11 @@ void RenderManager::BackgroundDraw()
 {
 }
 
-void RenderManager::BackDraw()
+void RenderManager::DrawQueue(std::vector<RendData> queue_)
 {
-    if (backQueue.empty()) return;
+    if (queue_.empty()) return;
 
-    std::stable_sort(backQueue.begin(), backQueue.end(),
+    std::stable_sort(queue_.begin(), queue_.end(),
         [](const RendData& a, const RendData& b) {
             // priority ‚ªˆÙ‚È‚é‚È‚ç priority —Dæ
             if (a.priority != b.priority) {
@@ -32,7 +57,7 @@ void RenderManager::BackDraw()
             return a.footPosition > b.footPosition;
         });
 
-    auto it = std::stable_partition(backQueue.begin(), backQueue.end(),
+    auto it = std::stable_partition(queue_.begin(), queue_.end(),
         [](const RendData& cmd) {
             return !cmd.addEffect; // addEffect ‚ª false ‚Ì‚à‚Ì‚ğ‘O‚ÉW‚ß‚é
         });
@@ -40,7 +65,7 @@ void RenderManager::BackDraw()
     // --- •`‰æÀs ---
 
     // ’Êí•`‰æ (Alpha)
-    for (auto i = backQueue.begin(); i != it; ++i)
+    for (auto i = queue_.begin(); i != it; ++i)
     {
         SHADER.m_spriteShader.SetMatrix(i->mat);
         SHADER.m_spriteShader.SetFlashValue(i->flashValue);
@@ -48,10 +73,10 @@ void RenderManager::BackDraw()
     }
 
     // ‰ÁZ•`‰æ (Add) - ‹«ŠE iterator ˆÈ~‚É true ‚ªW‚Ü‚Á‚Ä‚¢‚é
-    if (it != backQueue.end())
+    if (it != queue_.end())
     {
         D3D.SetBlendState(BlendMode::Add);
-        for (auto i = it; i != backQueue.end(); ++i)
+        for (auto i = it; i != queue_.end(); ++i)
         {
             SHADER.m_spriteShader.SetMatrix(i->mat);
             SHADER.m_spriteShader.SetFlashValue(i->flashValue);
@@ -63,17 +88,5 @@ void RenderManager::BackDraw()
     SHADER.m_spriteShader.SetFlashValue(0.0f);
 
     // 3. ƒƒ‚ƒŠ‚ÌÅ“K‰»: clear() ‚Í—e—Ê(capacity)‚ğˆÛ‚·‚é‚½‚ßAŸ‚ÌƒtƒŒ[ƒ€‚Å‚ÌÄŠm•Û‚ğ–h‚°‚Ü‚·
-    backQueue.clear();
-}
-
-void RenderManager::MiddleDraw()
-{
-}
-
-void RenderManager::FrontDraw()
-{
-}
-
-void RenderManager::UIDraw()
-{
+    queue_.clear();
 }

@@ -5,7 +5,7 @@
 
 void Scene::Draw2D()
 {
-	
+	RENDERM.DrawSprite();
 }
 
 void Scene::Update()
@@ -18,6 +18,25 @@ void Scene::Update()
 
 	if (deltaTime_ > 0.1f)
 		deltaTime_ = 0.1f;
+
+	//更新停止カウント
+	if (timeStopCount > 0.0f) 
+	{
+		if (timeStopCount > deltaTime_)
+		{
+			timeStopCount -= deltaTime_;
+			deltaTime_ = 0.0f;
+		}
+		else
+		{
+			deltaTime_ -= timeStopCount;
+			timeStopCount = 0.0f;
+		}
+	}
+
+	//経過時間保存
+	elapsedTime += deltaTime_;
+
 	// -
 
 	SCENEMANAGER.PreUpdate(deltaTime_);

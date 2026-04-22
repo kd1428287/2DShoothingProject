@@ -20,16 +20,14 @@ private:
 
 	void BackgroundDraw();
 
-	void BackDraw();
-	void MiddleDraw();
-	void FrontDraw();
-
-	void UIDraw();
+	void DrawQueue(std::vector<RendData>queue_);
 
 	std::vector<RendData> backQueue;
 	std::vector<RendData> middleQueue;
 	std::vector<RendData> frontQueue;
 	std::vector<RendData> UIQueue;
+
+
 
 };
 #define RENDERM RenderManager::Instance()

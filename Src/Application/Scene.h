@@ -8,6 +8,10 @@ private:
 	clock::time_point prevTime_ = clock::now();
 	float deltaTime_ = 0.0f;
 
+	float timeStopCount = 0.0f;
+
+	float elapsedTime = 0.0f;
+
 public:
 
 	// 初期設定
@@ -24,6 +28,9 @@ public:
 
 	// GUI処理
 	void ImGuiUpdate();
+
+	// 更新停止カウント設定
+	void SetStopCount(float count) { timeStopCount = count; };
 
 private:
 
