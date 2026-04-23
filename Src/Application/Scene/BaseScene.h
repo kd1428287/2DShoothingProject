@@ -1,13 +1,11 @@
 #pragma once
 
-enum class SceneChangeState
+enum class SceneState
 {
-	None = 0,
-	onEnter = 1,
-	EndEnter = 2,
-	Now = 3,
-	onExit = 4,
-	EndExit = 5
+	onEnter,
+	endEnter,
+	onExit,
+	endExit
 };
 
 class BaseScene
@@ -24,12 +22,12 @@ public:
 	virtual void onEnter(float dt) = 0;
 	virtual void onExit(float dt) = 0;
 
-	void ChangeState(SceneChangeState next) { state = next; };
-	SceneChangeState NowState() { return state; };
+	void ChangeState(SceneState next) { state = next; };
+	SceneState NowState() { return state; };
 
 protected:
 
-	SceneChangeState state = SceneChangeState::None;
+	SceneState state = SceneState::None;
 
 
 private:

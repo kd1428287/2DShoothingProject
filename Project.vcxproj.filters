@@ -266,6 +266,7 @@
     <ClCompile Include="Src\Application\System\ResourceManager\ResourceManager.cpp">
       <Filter>Src\Application\System\ResourceManager</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Application\Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="説明.txt" />

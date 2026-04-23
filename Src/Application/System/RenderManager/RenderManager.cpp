@@ -10,7 +10,7 @@ void RenderManager::DrawSprite()
     DrawQueue(frontQueue);
     DrawQueue(UIQueue);
 
-
+    SHADER.m_spriteShader.DrawBox(0, 0, 1280, 720, &Math::Color{ 0.0f,0.0f,0.0f,fadeAlpha }, true);
 }
 
 void RenderManager::Submit(RendData queue)
@@ -38,7 +38,14 @@ void RenderManager::Submit(RendData queue)
     }
 }
 
-void RenderManager::BlackoutRatio(float ratio)
+void RenderManager::Fadeout(std::function<void()> onComplete)
+{
+    fadeAlpha += 0.1f;
+
+    if (fadeAlpha >= 1.0f)onComplete();
+}
+
+void RenderManager::Fadein(std::function<void()> onComplete)
 {
 }
 

@@ -4,6 +4,13 @@
 #include "BaseScene.h"
 #include "../System/RenderManager/RenderManager.h"
 
+enum class SceneType
+{
+	Title,
+	Game,
+	Result
+};
+
 class SceneManager
 {
 public:
@@ -15,38 +22,37 @@ public:
 		return instance;
 	}
 
-	void Init() { if (nowScene)nowScene->Init(); }
-	void PreUpdate(float dt) { if (nowScene)nowScene->PreUpdate(dt); };
-	void Update(float dt) 
-	{ 
-		if (nowScene)nowScene->Update(dt);
-		if (nextScene) 
+	void PreUpdate(float dt) 
+	{
+		if (currentSceneType != nextSceneType && currentScene->NowState() == SceneState::endExit)
 		{
-			switch (nowScene->NowState())
-			{
-			case SceneChangeState::Now:nowScene->ChangeState(SceneChangeState::onExit);
-				break;
-			case SceneChangeState::EndEnter:nowScene = std::move(nextScene);
-				Init();
-				nowScene->ChangeState(SceneChangeState::onEnter);
-				break;
-			default:
-				break;
-			}
+			ChangeScene(nextSceneType);
 		}
 	};
+	void Update(float dt) 
+	{ 
+		if (currentScene)currentScene->PreUpdate(dt);
+		if (currentScene)currentScene->Update(dt);
+	};
 
-	void RequestDraw() { if (nowScene)nowScene->RequestDraw(); };
+	void RequestDraw() { if (currentScene)currentScene->RequestDraw(); };
 
-	void RequestSceneChange(std::unique_ptr<BaseScene> queue) { nextScene = std::move(queue); }
-	void SetScene(std::unique_ptr<BaseScene> queue) { nowScene = std::move(queue); Init(); }
+	void RequestSceneChange(SceneType _nextScene) 
+	{
+		nextSceneType = _nextScene; 
+		currentScene->ChangeState(SceneState::onExit);
+	}
 
 private:
 	SceneManager() {};
+	~SceneManager() {};
 
-	std::unique_ptr<BaseScene> nowScene = nullptr;
-	std::unique_ptr<BaseScene> nextScene = nullptr;
+	void Init() { if (currentScene)currentScene->Init(); }
+	void ChangeScene(SceneType _nextScene);
 
+	std::unique_ptr<BaseScene> currentScene = nullptr;
+	SceneType currentSceneType = SceneType::Title;
+	SceneType nextSceneType = currentSceneType;
 };
 
 #define SCENEMANAGER SceneManager::Instance()

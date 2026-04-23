@@ -16,7 +16,8 @@ public:
 	
 	void Submit(RendData queue);
 
-	void BlackoutRatio(float ratio);	// 0 ~ 1
+	void Fadeout(std::function<void()> onComplete);
+	void Fadein(std::function<void()> onComplete);
 
 
 private:
@@ -31,7 +32,7 @@ private:
 	std::vector<RendData> frontQueue;
 	std::vector<RendData> UIQueue;
 
-
+	float fadeAlpha = 0.0f;
 
 };
 #define RENDERM RenderManager::Instance()
