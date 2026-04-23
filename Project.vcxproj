@@ -168,6 +168,7 @@
     <ClInclude Include="Src\Application\Scene\TitleScene\TitleScene.h" />
     <ClInclude Include="Src\Application\System\RenderManager\RendData.h" />
     <ClInclude Include="Src\Application\System\RenderManager\RenderManager.h" />
+    <ClInclude Include="Src\Application\System\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Src\System\Audio\KdAudio.h" />
     <ClInclude Include="src\System\Direct3D\KdDirect3D.h" />
     <ClInclude Include="Src\System\Direct3D\KdDirect3DHelper.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="Src\Application\Scene\ResultScene\ResultScene.cpp" />
     <ClCompile Include="Src\Application\Scene\TitleScene\TitleScene.cpp" />
     <ClCompile Include="Src\Application\System\RenderManager\RenderManager.cpp" />
+    <ClCompile Include="Src\Application\System\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Src\System\Audio\KdAudio.cpp" />
     <ClCompile Include="src\System\Direct3D\KdDirect3D.cpp" />
     <ClCompile Include="Src\System\Direct3D\KdDirect3DHelper.cpp" />

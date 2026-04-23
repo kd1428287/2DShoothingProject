@@ -6,7 +6,11 @@ class RenderManager
 {
 public:
 
-	static RenderManager& Instance();
+	static RenderManager& Instance()
+	{
+		static RenderManager instance;
+		return instance;
+	}
 
 	void DrawSprite();
 	

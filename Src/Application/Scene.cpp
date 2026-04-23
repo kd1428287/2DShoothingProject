@@ -1,5 +1,6 @@
 #include "main.h"
 #include "Scene.h"
+#include "Application/System/ResourceManager/ResourceManager.h"
 #include "Scene/SceneManager.h"
 #include "Scene/TitleScene/TitleScene.h"
 
@@ -47,6 +48,8 @@ void Scene::Update()
 void Scene::Init()
 {
 	SCENEMANAGER.SetScene(std::make_unique<TitleScene>());
+
+	RESOURCE.LoadTexture("player", "Texture/player.png");
 }
 
 void Scene::Release()

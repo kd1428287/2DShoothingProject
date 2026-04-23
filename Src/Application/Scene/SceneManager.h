@@ -39,7 +39,7 @@ public:
 	void RequestDraw() { if (nowScene)nowScene->RequestDraw(); };
 
 	void RequestSceneChange(std::unique_ptr<BaseScene> queue) { nextScene = std::move(queue); }
-	void SetScene(std::unique_ptr<BaseScene> queue) { nowScene = std::move(queue); }
+	void SetScene(std::unique_ptr<BaseScene> queue) { nowScene = std::move(queue); Init(); }
 
 private:
 	SceneManager() {};

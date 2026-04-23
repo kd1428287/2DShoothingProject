@@ -64,6 +64,9 @@
     <Filter Include="Src\Application\System\RenderManager">
       <UniqueIdentifier>{4c5943a3-f1d4-4f4c-9215-ca944d125cb1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\System\ResourceManager">
+      <UniqueIdentifier>{f452bedf-de74-4307-9441-b765d853c270}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -180,6 +183,9 @@
     <ClInclude Include="Src\Application\System\RenderManager\RendData.h">
       <Filter>Src\Application\System\RenderManager</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\System\ResourceManager\ResourceManager.h">
+      <Filter>Src\Application\System\ResourceManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -256,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\System\RenderManager\RenderManager.cpp">
       <Filter>Src\Application\System\RenderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\ResourceManager\ResourceManager.cpp">
+      <Filter>Src\Application\System\ResourceManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
