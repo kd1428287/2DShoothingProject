@@ -1,5 +1,5 @@
 #include "TitleScene.h"
-#include "Application/System/RenderManager/RendData.h"
+#include "Application/System/RenderManager/ObjectData.h"
 #include "Application/System/RenderManager/RenderManager.h"
 #include "Application/System/ResourceManager/ResourceManager.h"
 #include "Application/Scene/SceneManager.h"
@@ -20,7 +20,7 @@ void TitleScene::Update(float dt)
 
 void TitleScene::RequestDraw()
 {
-	RendData data;
+	ObjectData data;
 	data.tex = RESOURCE.GetTexture("player");
 	data.size = { 64,64 };
 	data.target = DrawTarget::middle;

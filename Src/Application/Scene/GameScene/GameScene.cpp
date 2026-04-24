@@ -1,5 +1,5 @@
 #include "GameScene.h"
-#include "Application/System/RenderManager/RendData.h"
+#include "Application/System/RenderManager/ObjectData.h"
 #include "Application/System/RenderManager/RenderManager.h"
 #include "Application/System/ResourceManager/ResourceManager.h"
 #include "Application/Scene/SceneManager.h"
@@ -21,7 +21,7 @@ void GameScene::Update(float dt)
 
 void GameScene::RequestDraw()
 {
-	RendData data;
+	ObjectData data;
 	data.tex = RESOURCE.GetTexture("dot");
 	data.size = { 1,1 };
 	data.scale = { 64,64 };

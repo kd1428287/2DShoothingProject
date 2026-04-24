@@ -1,6 +1,6 @@
 #pragma once
 
-#include"RendData.h";
+#include"ObjectData.h";
 
 class RenderManager
 {
@@ -14,7 +14,8 @@ public:
 
 	void DrawSprite();
 	
-	void Submit(RendData queue);
+	void Submit(ObjectData queue);
+	void Submit(std::shared_ptr<ObjectData> queue);
 
 	void Fadeout(std::function<void()> onComplete);
 	void Fadein(std::function<void()> onComplete);
@@ -25,12 +26,12 @@ private:
 
 	void BackgroundDraw();
 
-	void DrawQueue(std::vector<RendData>& queue_);
+	void DrawQueue(std::vector<ObjectData>& queue_);
 
-	std::vector<RendData> backQueue;
-	std::vector<RendData> middleQueue;
-	std::vector<RendData> frontQueue;
-	std::vector<RendData> UIQueue;
+	std::vector<ObjectData> backQueue;
+	std::vector<ObjectData> middleQueue;
+	std::vector<ObjectData> frontQueue;
+	std::vector<ObjectData> UIQueue;
 
 	float fadeAlpha = 1.0f;
 

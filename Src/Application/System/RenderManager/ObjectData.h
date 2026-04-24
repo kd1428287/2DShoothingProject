@@ -7,7 +7,7 @@ enum class DrawTarget {
 	UI
 };
 
-struct RendData
+struct ObjectData
 {
 	KdTexture* tex{};
 	Math::Vector2 position{};

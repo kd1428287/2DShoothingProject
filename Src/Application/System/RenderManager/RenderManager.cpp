@@ -1,5 +1,5 @@
 #include "RenderManager.h"
-#include "RendData.h"
+#include "ObjectData.h"
 #include "Application/System/ResourceManager/ResourceManager.h"
 
 void RenderManager::DrawSprite()
@@ -15,7 +15,7 @@ void RenderManager::DrawSprite()
     SHADER.m_spriteShader.DrawTex_color(RESOURCE.GetTexture("dot"), { 1,1,1,1 }, { 0,0,0,fadeAlpha });
 }
 
-void RenderManager::Submit(RendData queue)
+void RenderManager::Submit(ObjectData queue)
 {
     queue.mat = Math::Matrix::CreateScale(queue.scale.x, queue.scale.y, 1) *
         Math::Matrix::CreateRotationZ(queue.angle) *
@@ -33,6 +33,31 @@ void RenderManager::Submit(RendData queue)
         break;
     case DrawTarget::UI:
         UIQueue.push_back(queue);
+        break;
+
+    default:
+        break;
+    }
+}
+
+void RenderManager::Submit(std::shared_ptr<ObjectData> queue)
+{
+    queue->mat = Math::Matrix::CreateScale(queue->scale.x, queue->scale.y, 1) *
+        Math::Matrix::CreateRotationZ(queue->angle) *
+        Math::Matrix::CreateTranslation(queue->position.x, queue->position.y, 0);
+    switch (queue->target)
+    {
+    case DrawTarget::back:
+        backQueue.push_back(*queue);
+        break;
+    case DrawTarget::middle:
+        middleQueue.push_back(*queue);
+        break;
+    case DrawTarget::front:
+        frontQueue.push_back(*queue);
+        break;
+    case DrawTarget::UI:
+        UIQueue.push_back(*queue);
         break;
 
     default:
@@ -66,12 +91,12 @@ void RenderManager::BackgroundDraw()
 {
 }
 
-void RenderManager::DrawQueue(std::vector<RendData>& queue_)
+void RenderManager::DrawQueue(std::vector<ObjectData>& queue_)
 {
     if (queue_.empty()) return;
 
     std::stable_sort(queue_.begin(), queue_.end(),
-        [](const RendData& a, const RendData& b) {
+        [](const ObjectData& a, const ObjectData& b) {
             // priority Ç™àŸÇ»ÇÈÇ»ÇÁ priority óDêÊ
             if (a.priority != b.priority) {
                 return a.priority < b.priority;
@@ -81,7 +106,7 @@ void RenderManager::DrawQueue(std::vector<RendData>& queue_)
         });
 
     auto it = std::stable_partition(queue_.begin(), queue_.end(),
-        [](const RendData& cmd) {
+        [](const ObjectData& cmd) {
             return !cmd.addEffect; // addEffect Ç™ false ÇÃÇ‡ÇÃÇëOÇ…èWÇﬂÇÈ
         });
 

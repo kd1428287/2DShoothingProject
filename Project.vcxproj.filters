@@ -186,7 +186,7 @@
     <ClInclude Include="Src\Application\System\RenderManager\RenderManager.h">
       <Filter>Src\Application\System\RenderManager</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\System\RenderManager\RendData.h">
+    <ClInclude Include="Src\Application\System\RenderManager\ObjectData.h">
       <Filter>Src\Application\System\RenderManager</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\System\ResourceManager\ResourceManager.h">
@@ -195,23 +195,26 @@
     <ClInclude Include="Src\Application\System\InputManager\InputManager.h">
       <Filter>Src\Application\System\InputManager</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\System\Collision\Collider.h">
-      <Filter>Src\Application\System\CollisionManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\System\Collision\CollisionHitResult.h">
-      <Filter>Src\Application\System\CollisionManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\System\Collision\CollisionLayer.h">
-      <Filter>Src\Application\System\CollisionManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\System\Collision\CollisionManager.h">
-      <Filter>Src\Application\System\CollisionManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\System\Collision\CollisionTable.h">
-      <Filter>Src\Application\System\CollisionManager</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Object\BaseObject.h">
       <Filter>Src\Application\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\ObjectManager.h">
+      <Filter>Src\Application\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\CollisionManager\Collider.h">
+      <Filter>Src\Application\System\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\CollisionManager\CollisionHitResult.h">
+      <Filter>Src\Application\System\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\CollisionManager\CollisionLayer.h">
+      <Filter>Src\Application\System\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\CollisionManager\CollisionManager.h">
+      <Filter>Src\Application\System\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\CollisionManager\CollisionTable.h">
+      <Filter>Src\Application\System\CollisionManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -299,14 +302,17 @@
     <ClCompile Include="Src\Application\System\InputManager\InputManager.cpp">
       <Filter>Src\Application\System\RenderManager</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\System\Collision\Collider.cpp">
-      <Filter>Src\Application\System\CollisionManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\System\Collision\CollisionManager.cpp">
-      <Filter>Src\Application\System\CollisionManager</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Object\BaseObject.cpp">
       <Filter>Src\Application\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\ObjectManager.cpp">
+      <Filter>Src\Application\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\CollisionManager\Collider.cpp">
+      <Filter>Src\Application\System\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\CollisionManager\CollisionManager.cpp">
+      <Filter>Src\Application\System\CollisionManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
