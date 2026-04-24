@@ -46,9 +46,10 @@ void Scene::Update()
 
 void Scene::Init()
 {
-	SCENEMANAGER.SetScene(std::make_unique<TitleScene>());
+	SCENEMANAGER.RequestSceneChange(SceneType::Title);
 
 	RESOURCE.LoadTexture("player", "Texture/player.png");
+	RESOURCE.LoadTexture("dot", "Texture/System/dot.png");
 }
 
 void Scene::Release()

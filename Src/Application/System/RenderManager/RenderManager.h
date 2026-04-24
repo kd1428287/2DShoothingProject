@@ -25,14 +25,14 @@ private:
 
 	void BackgroundDraw();
 
-	void DrawQueue(std::vector<RendData>queue_);
+	void DrawQueue(std::vector<RendData>& queue_);
 
 	std::vector<RendData> backQueue;
 	std::vector<RendData> middleQueue;
 	std::vector<RendData> frontQueue;
 	std::vector<RendData> UIQueue;
 
-	float fadeAlpha = 0.0f;
+	float fadeAlpha = 1.0f;
 
 };
 #define RENDERM RenderManager::Instance()

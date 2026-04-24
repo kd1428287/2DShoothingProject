@@ -5,24 +5,54 @@
 #include "GameScene/GameScene.h"	
 #include "ResultScene/ResultScene.h"
 
-void SceneManager::ChangeScene(SceneType _nextScene)
+#include "Application/System/InputManager/InputManager.h"
+
+void SceneManager::PreUpdate(float dt)
 {
-	switch (_nextScene)
+	if (isTransitioning)ChangeScene(nextSceneType);
+}
+
+void SceneManager::Update(float dt)
+{
+	if (currentScene && !isTransitioning)
 	{
-	case SceneType::Title:
-		currentScene = std::make_unique<TitleScene>();
-		break;
-	case SceneType::Game:
-		//currentScene = std::make_unique<GameScene>();
-		break;
-	case SceneType::Result:
-		//currentScene = std::make_unique<ResultScene>();
-		break;
-	default:
-		break;
+		currentScene->PreUpdate(dt);
+		currentScene->Update(dt);
 	}
 
-	Init();
+	INPUT.Update();
+}
 
-	currentSceneType = nextSceneType;
+void SceneManager::ChangeScene(SceneType _nextScene)
+{
+	if (currentSceneType != _nextScene || currentScene == nullptr)
+	{
+		RENDERM.Fadeout([this, _nextScene]() {
+
+			switch (_nextScene)
+			{
+			case SceneType::Title:
+				currentScene = std::make_unique<TitleScene>();
+				break;
+			case SceneType::Game:
+				currentScene = std::make_unique<GameScene>();
+				break;
+			case SceneType::Result:
+				//currentScene = std::make_unique<ResultScene>();
+				break;
+			default:
+				break;
+			}
+
+			currentSceneType = nextSceneType;
+			Init();
+
+			});
+	}
+	else
+	{
+		RENDERM.Fadein([this, _nextScene]() {
+			isTransitioning = false;
+			});
+	}
 }

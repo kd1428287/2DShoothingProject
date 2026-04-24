@@ -12,8 +12,8 @@ public:
 	void Update(float dt)override;
 	void RequestDraw()override;
 
-	void onEnter(float dt)override;
-	void onExit(float dt)override;
+	void onEnter()override;
+	void onExit()override;
 
 protected:
 

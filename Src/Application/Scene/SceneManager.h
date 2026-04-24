@@ -14,33 +14,26 @@ enum class SceneType
 class SceneManager
 {
 public:
-	~SceneManager() {};
-
+	
 	static SceneManager& Instance()
 	{
 		static SceneManager instance;
 		return instance;
 	}
 
-	void PreUpdate(float dt) 
-	{
-		if (currentSceneType != nextSceneType && currentScene->NowState() == SceneState::endExit)
-		{
-			ChangeScene(nextSceneType);
-		}
-	};
-	void Update(float dt) 
-	{ 
-		if (currentScene)currentScene->PreUpdate(dt);
-		if (currentScene)currentScene->Update(dt);
-	};
+	void PreUpdate(float dt);
+	
+	void Update(float dt);
+	
 
 	void RequestDraw() { if (currentScene)currentScene->RequestDraw(); };
 
 	void RequestSceneChange(SceneType _nextScene) 
 	{
+		if (isTransitioning && currentSceneType == _nextScene)return;
 		nextSceneType = _nextScene; 
-		currentScene->ChangeState(SceneState::onExit);
+		if(currentScene)currentScene->ChangeState(SceneState::onExit);
+		isTransitioning = true;
 	}
 
 private:
@@ -53,6 +46,8 @@ private:
 	std::unique_ptr<BaseScene> currentScene = nullptr;
 	SceneType currentSceneType = SceneType::Title;
 	SceneType nextSceneType = currentSceneType;
+
+	bool isTransitioning = false;	//シーン遷移フラグ
 };
 
 #define SCENEMANAGER SceneManager::Instance()

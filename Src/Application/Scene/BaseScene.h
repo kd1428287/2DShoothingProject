@@ -19,15 +19,15 @@ public:
 	virtual void Update(float dt) = 0;
 	virtual void RequestDraw() = 0;
 
-	virtual void onEnter(float dt) = 0;
-	virtual void onExit(float dt) = 0;
+	virtual void onEnter() = 0;
+	virtual void onExit() = 0;
 
 	void ChangeState(SceneState next) { state = next; };
-	SceneState NowState() { return state; };
+	SceneState GetState() { return state; };
 
 protected:
 
-	SceneState state = SceneState::None;
+	SceneState state = SceneState::onEnter;
 
 
 private:

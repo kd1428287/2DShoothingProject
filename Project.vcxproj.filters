@@ -67,6 +67,12 @@
     <Filter Include="Src\Application\System\ResourceManager">
       <UniqueIdentifier>{f452bedf-de74-4307-9441-b765d853c270}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\System\InputManager">
+      <UniqueIdentifier>{42f64e75-f74d-45df-a83d-72dfd8a203ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\System\CollisionManager">
+      <UniqueIdentifier>{1aa49393-d3ac-459d-9117-b28f7cc1201a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -186,6 +192,27 @@
     <ClInclude Include="Src\Application\System\ResourceManager\ResourceManager.h">
       <Filter>Src\Application\System\ResourceManager</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\System\InputManager\InputManager.h">
+      <Filter>Src\Application\System\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\Collision\Collider.h">
+      <Filter>Src\Application\System\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\Collision\CollisionHitResult.h">
+      <Filter>Src\Application\System\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\Collision\CollisionLayer.h">
+      <Filter>Src\Application\System\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\Collision\CollisionManager.h">
+      <Filter>Src\Application\System\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\Collision\CollisionTable.h">
+      <Filter>Src\Application\System\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\BaseObject.h">
+      <Filter>Src\Application\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -266,7 +293,21 @@
     <ClCompile Include="Src\Application\System\ResourceManager\ResourceManager.cpp">
       <Filter>Src\Application\System\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Scene\SceneManager.cpp" />
+    <ClCompile Include="Src\Application\Scene\SceneManager.cpp">
+      <Filter>Src\Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\InputManager\InputManager.cpp">
+      <Filter>Src\Application\System\RenderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\Collision\Collider.cpp">
+      <Filter>Src\Application\System\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\Collision\CollisionManager.cpp">
+      <Filter>Src\Application\System\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\BaseObject.cpp">
+      <Filter>Src\Application\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="説明.txt" />

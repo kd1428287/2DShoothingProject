@@ -1,5 +1,6 @@
 #include "RenderManager.h"
 #include "RendData.h"
+#include "Application/System/ResourceManager/ResourceManager.h"
 
 void RenderManager::DrawSprite()
 {
@@ -10,7 +11,8 @@ void RenderManager::DrawSprite()
     DrawQueue(frontQueue);
     DrawQueue(UIQueue);
 
-    SHADER.m_spriteShader.DrawBox(0, 0, 1280, 720, &Math::Color{ 0.0f,0.0f,0.0f,fadeAlpha }, true);
+    SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateScale({ 1280.0f,720.0f,0.0f }));
+    SHADER.m_spriteShader.DrawTex_color(RESOURCE.GetTexture("dot"), { 1,1,1,1 }, { 0,0,0,fadeAlpha });
 }
 
 void RenderManager::Submit(RendData queue)
@@ -42,18 +44,29 @@ void RenderManager::Fadeout(std::function<void()> onComplete)
 {
     fadeAlpha += 0.1f;
 
-    if (fadeAlpha >= 1.0f)onComplete();
+    if (fadeAlpha >= 1.0f)
+    {
+        fadeAlpha = 1.0f;
+        onComplete();
+    }
 }
 
 void RenderManager::Fadein(std::function<void()> onComplete)
 {
+    fadeAlpha -= 0.1f;
+
+    if (fadeAlpha <= -0.1f)
+    {
+        fadeAlpha = -0.1f;
+        onComplete();
+    }
 }
 
 void RenderManager::BackgroundDraw()
 {
 }
 
-void RenderManager::DrawQueue(std::vector<RendData> queue_)
+void RenderManager::DrawQueue(std::vector<RendData>& queue_)
 {
     if (queue_.empty()) return;
 
@@ -97,6 +110,5 @@ void RenderManager::DrawQueue(std::vector<RendData> queue_)
 
     SHADER.m_spriteShader.SetFlashValue(0.0f);
 
-    // 3. メモリの最適化: clear() は容量(capacity)を維持するため、次のフレームでの再確保を防げます
     queue_.clear();
 }
