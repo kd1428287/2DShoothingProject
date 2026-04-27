@@ -1,6 +1,8 @@
 #include "ObjectManager.h"
 #include "BaseObject.h"
 
+#include "Application/Object/Characters/Player/PlayerManager.h"
+
 ObjectManager::ObjectManager()
 {
 }
@@ -14,6 +16,24 @@ void ObjectManager::Add(std::unique_ptr<BaseObject> obj)
 	if (obj)
 	{
 		pendingObjects_.push_back(std::move(obj));
+	}
+}
+
+void ObjectManager::Add(ObjectType type)
+{
+	switch (type)
+	{
+	case ObjectType::Player:
+
+		/// ÇÊÇ≠Ç»Ç¢Å@óvèCê≥
+		PlayerManager::Instance().AddPlayer(objects_);
+		break;
+	case ObjectType::Enemy:
+		break;
+	case ObjectType::Prop:
+		break;
+	default:
+		break;
 	}
 }
 

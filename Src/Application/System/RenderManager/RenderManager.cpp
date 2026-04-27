@@ -17,9 +17,16 @@ void RenderManager::DrawSprite()
 
 void RenderManager::Submit(ObjectData queue)
 {
-    queue.mat = Math::Matrix::CreateScale(queue.scale.x, queue.scale.y, 1) *
-        Math::Matrix::CreateRotationZ(queue.angle) *
-        Math::Matrix::CreateTranslation(queue.position.x, queue.position.y, 0);
+    if (queue.mat == Math::Matrix(  1.f, 0, 0, 0,
+                                    0, 1.f, 0, 0,
+                                    0, 0, 1.f, 0,
+                                    0, 0, 0, 1.f))
+    {
+        queue.mat = Math::Matrix::CreateScale(queue.scale.x, queue.scale.y, 1) *
+            Math::Matrix::CreateRotationZ(queue.angle) *
+            Math::Matrix::CreateTranslation(queue.position.x, queue.position.y, 0);
+    };
+
     switch (queue.target)
     {
     case DrawTarget::back:

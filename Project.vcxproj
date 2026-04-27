@@ -160,6 +160,9 @@
     <ClInclude Include="..\Library\tinygltf\stb_image_write.h" />
     <ClInclude Include="..\Library\tinygltf\tiny_gltf.h" />
     <ClInclude Include="Src\Application\Object\BaseObject.h" />
+    <ClInclude Include="Src\Application\Object\Characters\Characters.h" />
+    <ClInclude Include="Src\Application\Object\Characters\Player\Player.h" />
+    <ClInclude Include="Src\Application\Object\Characters\Player\PlayerManager.h" />
     <ClInclude Include="Src\Application\Object\ObjectManager.h" />
     <ClInclude Include="Src\Application\Scene.h" />
     <ClInclude Include="Src\Application\main.h" />
@@ -201,6 +204,9 @@
     <ClCompile Include="..\Library\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="..\Library\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Src\Application\Object\BaseObject.cpp" />
+    <ClCompile Include="Src\Application\Object\Characters\Characters.cpp" />
+    <ClCompile Include="Src\Application\Object\Characters\Player\Player.cpp" />
+    <ClCompile Include="Src\Application\Object\Characters\Player\PlayerManager.cpp" />
     <ClCompile Include="Src\Application\Object\ObjectManager.cpp" />
     <ClCompile Include="Src\Application\Scene.cpp" />
     <ClCompile Include="Src\Application\main.cpp" />

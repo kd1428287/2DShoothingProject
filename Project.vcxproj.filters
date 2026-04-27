@@ -73,6 +73,12 @@
     <Filter Include="Src\Application\System\CollisionManager">
       <UniqueIdentifier>{1aa49393-d3ac-459d-9117-b28f7cc1201a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\Characters">
+      <UniqueIdentifier>{709db5f0-621f-4a2a-904d-95c44b8b3b80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\Characters\Player">
+      <UniqueIdentifier>{1949be34-9b4a-426c-a202-0e044f01e79d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -216,6 +222,15 @@
     <ClInclude Include="Src\Application\System\CollisionManager\CollisionTable.h">
       <Filter>Src\Application\System\CollisionManager</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\Characters\Characters.h">
+      <Filter>Src\Application\Object\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Characters\Player\Player.h">
+      <Filter>Src\Application\Object\Characters\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Characters\Player\PlayerManager.h">
+      <Filter>Src\Application\Object\Characters\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -313,6 +328,15 @@
     </ClCompile>
     <ClCompile Include="Src\Application\System\CollisionManager\CollisionManager.cpp">
       <Filter>Src\Application\System\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Characters\Characters.cpp">
+      <Filter>Src\Application\Object\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Characters\Player\Player.cpp">
+      <Filter>Src\Application\Object\Characters\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Characters\Player\PlayerManager.cpp">
+      <Filter>Src\Application\Object\Characters\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

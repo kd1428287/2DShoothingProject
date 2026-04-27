@@ -4,6 +4,7 @@
 #include "Application/System/ResourceManager/ResourceManager.h"
 #include "Application/Scene/SceneManager.h"
 #include "Application/System/InputManager/InputManager.h"
+#include "Application/Object/ObjectManager.h"
 
 
 void GameScene::Init()
