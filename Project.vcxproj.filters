@@ -79,6 +79,12 @@
     <Filter Include="Src\Application\Object\Characters\Player">
       <UniqueIdentifier>{1949be34-9b4a-426c-a202-0e044f01e79d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\Characters\Enemy">
+      <UniqueIdentifier>{83c0e34e-4b86-475e-858e-30623f6cf167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\Characters\Enemy\Goblin">
+      <UniqueIdentifier>{71256262-de38-432f-a83c-c1ec859f809a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -231,6 +237,12 @@
     <ClInclude Include="Src\Application\Object\Characters\Player\PlayerManager.h">
       <Filter>Src\Application\Object\Characters\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\Characters\Enemy\Goblin\Goblin.h">
+      <Filter>Src\Application\Object\Characters\Enemy\Goblin</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Characters\Enemy\Enemy.h">
+      <Filter>Src\Application\Object\Characters\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -314,9 +326,6 @@
     <ClCompile Include="Src\Application\Scene\SceneManager.cpp">
       <Filter>Src\Application\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\System\InputManager\InputManager.cpp">
-      <Filter>Src\Application\System\RenderManager</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Object\BaseObject.cpp">
       <Filter>Src\Application\Object</Filter>
     </ClCompile>
@@ -337,6 +346,12 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Characters\Player\PlayerManager.cpp">
       <Filter>Src\Application\Object\Characters\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\InputManager\InputManager.cpp">
+      <Filter>Src\Application\System\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Characters\Enemy\Goblin\Goblin.cpp">
+      <Filter>Src\Application\Object\Characters\Enemy\Goblin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

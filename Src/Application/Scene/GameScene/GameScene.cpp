@@ -9,27 +9,24 @@
 
 void GameScene::Init()
 {
+	Math::Vector2 startPoint = { 0,-300 };
+	ObjectManager::Instance().Add(ObjectType::Player,startPoint);
 }
 
 void GameScene::PreUpdate(float dt)
 {
+	ObjectManager::Instance().PreUpdate(dt);
 }
 
 void GameScene::Update(float dt)
 {
+	ObjectManager::Instance().Update(dt);
 	if (INPUT.IsTriggered('Z'))SCENEMANAGER.RequestSceneChange(SceneType::Title);
 }
 
 void GameScene::RequestDraw()
 {
-	ObjectData data;
-	data.tex = RESOURCE.GetTexture("dot");
-	data.size = { 1,1 };
-	data.scale = { 64,64 };
-	data.position = { 300,0 };
-	data.color = { 1.0f,1.0f,1.0f,1.0f };
-	data.target = DrawTarget::front;
-	RENDERM.Submit(data);
+	ObjectManager::Instance().DrawRequest();
 }
 
 void GameScene::onEnter()

@@ -20,13 +20,21 @@ public:
 	void Fadeout(std::function<void()> onComplete);
 	void Fadein(std::function<void()> onComplete);
 
+	void SetZoomRatio(float ratio) { tmpScale = ratio; };
+
 
 private:
-	RenderManager() {}
+	RenderManager();
+	~RenderManager() {}
 
 	void BackgroundDraw();
 
 	void DrawQueue(std::vector<ObjectData>& queue_);
+
+	KdTexture tmpTex;
+	float tmpScale{};
+	float scrWidth = 1280;
+	float scrHeight = 720;
 
 	std::vector<ObjectData> backQueue;
 	std::vector<ObjectData> middleQueue;

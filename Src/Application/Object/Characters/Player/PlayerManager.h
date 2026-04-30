@@ -12,7 +12,7 @@ public:
 		return instance;
 	}
 
-	void AddPlayer(std::vector<std::unique_ptr<BaseObject>> vector);
+	std::unique_ptr<Player> MakePlayer(Math::Vector2 position);
 	Player* GetPlayer()const { return player; }
 
 private:

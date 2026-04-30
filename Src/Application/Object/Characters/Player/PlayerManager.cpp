@@ -2,13 +2,10 @@
 
 #include "Player.h"
 
-void PlayerManager::AddPlayer(std::vector<std::unique_ptr<BaseObject>> vector)
+std::unique_ptr<Player> PlayerManager::MakePlayer(Math::Vector2 position)
 {
-	if (!player)
-	{
-		auto p = std::make_unique<Player>();
-		p->Init();
-		player = p.get();
-		vector.push_back(std::move(p));
-	}
-};
+	auto pl = std::make_unique<Player>();
+	pl->Init();
+	pl->SetPosition(position);
+	return pl;
+}

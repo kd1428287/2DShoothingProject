@@ -161,6 +161,8 @@
     <ClInclude Include="..\Library\tinygltf\tiny_gltf.h" />
     <ClInclude Include="Src\Application\Object\BaseObject.h" />
     <ClInclude Include="Src\Application\Object\Characters\Characters.h" />
+    <ClInclude Include="Src\Application\Object\Characters\Enemy\Enemy.h" />
+    <ClInclude Include="Src\Application\Object\Characters\Enemy\Goblin\Goblin.h" />
     <ClInclude Include="Src\Application\Object\Characters\Player\Player.h" />
     <ClInclude Include="Src\Application\Object\Characters\Player\PlayerManager.h" />
     <ClInclude Include="Src\Application\Object\ObjectManager.h" />
@@ -205,6 +207,7 @@
     <ClCompile Include="..\Library\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Src\Application\Object\BaseObject.cpp" />
     <ClCompile Include="Src\Application\Object\Characters\Characters.cpp" />
+    <ClCompile Include="Src\Application\Object\Characters\Enemy\Goblin\Goblin.cpp" />
     <ClCompile Include="Src\Application\Object\Characters\Player\Player.cpp" />
     <ClCompile Include="Src\Application\Object\Characters\Player\PlayerManager.cpp" />
     <ClCompile Include="Src\Application\Object\ObjectManager.cpp" />

@@ -50,6 +50,8 @@ void Scene::Init()
 
 	RESOURCE.LoadTexture("player", "Texture/player.png");
 	RESOURCE.LoadTexture("dot", "Texture/System/dot.png");
+
+	
 }
 
 void Scene::Release()

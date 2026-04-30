@@ -21,6 +21,7 @@ public:
     void Add(std::unique_ptr<BaseObject> obj);
 
     void Add(ObjectType type);
+    void Add(ObjectType type, Math::Vector2 pos);
 
     void PreUpdate(float dt);
     void Update(float dt);

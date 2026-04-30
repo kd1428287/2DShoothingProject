@@ -208,7 +208,7 @@ bool KdTexture::CreateDepth(int w, int h, DXGI_FORMAT format, UINT arrayCnt, con
 	return true;
 }
 
-void KdTexture::ClearRenerTarget(const Math::Color & ColorRGBA)
+void KdTexture::ClearRenderTarget(const Math::Color & ColorRGBA)
 {
 	assert(m_rtv != nullptr && "RenderTarget‚¶‚á‚È‚¢‚Ì‚ÅClear‚Å‚«‚Ü‚¹‚ñ");
 

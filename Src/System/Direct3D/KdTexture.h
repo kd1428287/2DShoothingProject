@@ -85,7 +85,7 @@ public:
 	// RenderTargetをクリア
 	// ※RenderTargetViewを作成する必要があります
 	// ・ColorRGBA	… クリアする色
-	void ClearRenerTarget(const Math::Color& ColorRGBA);
+	void ClearRenderTarget(const Math::Color& ColorRGBA);
 
 	// DepthStencilをクリア
 	// ※DepthStencilViewを作成する必要があります

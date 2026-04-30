@@ -36,6 +36,22 @@ public:
 		return !currentKeys[key] && prevKeys[key];
 	}
 
+	// ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©-‚¢‚È‚¢‚È‚çfalse
+	bool IsEntered()const
+	{
+		bool check = false;
+
+		for (int i = 0; i < 256; ++i) {
+			if (currentKeys[i] == true)
+			{
+				check = true;
+				break;
+			}
+		}
+
+		return check;
+	}
+
 private:
 	InputManager() 
 	{

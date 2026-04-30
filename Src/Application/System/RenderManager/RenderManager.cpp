@@ -4,11 +4,26 @@
 
 void RenderManager::DrawSprite()
 {
+    D3D.SetBlendState(BlendMode::NoBlend);
+
+    tmpTex.ClearRenderTarget(Math::Color{ 0,0,0,0 });
+    tmpTex.SetRenderTarget();
+
+    D3D.SetBlendState(BlendMode::Alpha);
+
     BackgroundDraw();
 
     DrawQueue(backQueue);
     DrawQueue(middleQueue);
     DrawQueue(frontQueue);
+
+    D3D.SetBackBuffer();
+
+    SHADER.m_spriteShader.SetMatrix(
+        Math::Matrix::CreateScale(tmpScale, tmpScale, 0.0f) *
+        Math::Matrix::CreateTranslation(0, 0, 0));
+    SHADER.m_spriteShader.DrawTex(&tmpTex, Math::Rectangle(0, 0, scrWidth, scrHeight), 1.0f);
+
     DrawQueue(UIQueue);
 
     SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateScale({ 1280.0f,720.0f,0.0f }));
@@ -92,6 +107,12 @@ void RenderManager::Fadein(std::function<void()> onComplete)
         fadeAlpha = -0.1f;
         onComplete();
     }
+}
+
+RenderManager::RenderManager()
+{
+    tmpTex.CreateRenderTarget(scrWidth, scrHeight);
+    tmpScale = 1.0f;
 }
 
 void RenderManager::BackgroundDraw()

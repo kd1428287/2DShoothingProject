@@ -2,6 +2,7 @@
 #include "BaseObject.h"
 
 #include "Application/Object/Characters/Player/PlayerManager.h"
+#include "Application/Object/Characters/Player/Player.h"
 
 ObjectManager::ObjectManager()
 {
@@ -21,12 +22,15 @@ void ObjectManager::Add(std::unique_ptr<BaseObject> obj)
 
 void ObjectManager::Add(ObjectType type)
 {
+	Add(type, { 0,0 });
+}
+
+void ObjectManager::Add(ObjectType type, Math::Vector2 pos)
+{
 	switch (type)
 	{
 	case ObjectType::Player:
-
-		/// ÇÊÇ≠Ç»Ç¢Å@óvèCê≥
-		PlayerManager::Instance().AddPlayer(objects_);
+		Add(std::move(PlayerManager::Instance().MakePlayer(pos)));
 		break;
 	case ObjectType::Enemy:
 		break;

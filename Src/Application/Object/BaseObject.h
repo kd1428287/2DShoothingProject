@@ -34,12 +34,15 @@ public:
 	virtual void Init();
 	virtual void PreUpdate(float dt);
 	virtual void Update(float dt);
-	void DrawRequest();
+	virtual void DrawRequest();
 
 	// ===== Collision =====
 	void AddCollider(std::unique_ptr<Collider> collider);
 	const std::vector<std::unique_ptr<Collider>>& GetColliders() const;
 	virtual void OnCollision(Collider* self, const HitResult& hit) {}
+
+	//セッター
+	void SetPosition(Math::Vector2 position) { objParameter.position = position; };
 
 protected:
 	ObjectParameter objParameter;
