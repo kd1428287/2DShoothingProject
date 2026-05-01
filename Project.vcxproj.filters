@@ -85,6 +85,12 @@
     <Filter Include="Src\Application\Object\Characters\Enemy\Goblin">
       <UniqueIdentifier>{71256262-de38-432f-a83c-c1ec859f809a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\Items">
+      <UniqueIdentifier>{916f6f9b-a891-48db-afbb-0aea7a299393}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\Items\Throwables">
+      <UniqueIdentifier>{e94c7669-483b-4bc1-b7a0-b5b3f581cb09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -243,6 +249,12 @@
     <ClInclude Include="Src\Application\Object\Characters\Enemy\Enemy.h">
       <Filter>Src\Application\Object\Characters\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\Items\Items.h">
+      <Filter>Src\Application\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Items\Throwables\Throwables.h">
+      <Filter>Src\Application\Object\Items\Throwables</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -352,6 +364,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Characters\Enemy\Goblin\Goblin.cpp">
       <Filter>Src\Application\Object\Characters\Enemy\Goblin</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Items\Throwables\Throwables.cpp">
+      <Filter>Src\Application\Object\Items\Throwables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

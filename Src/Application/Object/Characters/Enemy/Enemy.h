@@ -4,6 +4,10 @@
 
 class BaseEnemy :public Characters
 {
+public:
 	BaseEnemy() {};
 	~BaseEnemy() {};
+
+protected:
+	
 };

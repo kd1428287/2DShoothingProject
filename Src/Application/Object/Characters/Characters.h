@@ -3,8 +3,11 @@
 
 struct CharacterParameter
 {
-	int HitPoint{};
+	int HP{};
 	Math::Vector2 moveDir{};
+	float moveSpeed{};
+
+
 };
 class Characters :public BaseObject
 {
