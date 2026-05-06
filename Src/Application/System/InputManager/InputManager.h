@@ -19,7 +19,8 @@ public:
 		}
 	}
 
-	void GetMousePos(POINT* mp);
+	Math::Vector2 GetMousePos();
+	float GetMouseDir(Math::Vector2 pos);
 
 	// キーが「押された瞬間」 (Trigger)
 	bool IsTriggered(int key) const {

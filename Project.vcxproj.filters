@@ -91,6 +91,12 @@
     <Filter Include="Src\Application\Object\Items\Throwables">
       <UniqueIdentifier>{e94c7669-483b-4bc1-b7a0-b5b3f581cb09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\Items\Throwables\Stone">
+      <UniqueIdentifier>{bec09bbe-8f74-43f4-a1f4-56ed58bce1ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\Items\Throwables\Bomb">
+      <UniqueIdentifier>{860cf655-09e0-42c4-9081-f58d44410f6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -255,6 +261,15 @@
     <ClInclude Include="Src\Application\Object\Items\Throwables\Throwables.h">
       <Filter>Src\Application\Object\Items\Throwables</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\Items\Throwables\Bomb\Bomb.h">
+      <Filter>Src\Application\Object\Items\Throwables\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Items\Throwables\Stone\Stone.h">
+      <Filter>Src\Application\Object\Items\Throwables\Stone</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Items\ItemManager.h">
+      <Filter>Src\Application\Object\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -367,6 +382,15 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Items\Throwables\Throwables.cpp">
       <Filter>Src\Application\Object\Items\Throwables</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Items\Throwables\Bomb\Bomb.cpp">
+      <Filter>Src\Application\Object\Items\Throwables\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Items\Throwables\Stone\Stone.cpp">
+      <Filter>Src\Application\Object\Items\Throwables\Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Items\ItemManager.cpp">
+      <Filter>Src\Application\Object\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

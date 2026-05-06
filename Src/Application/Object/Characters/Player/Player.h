@@ -1,6 +1,8 @@
 #pragma once
 #include "../Characters.h"
 
+class Throwables;
+
 struct PlayerParameter
 {
 	float throwPower = 1.0f;
@@ -33,5 +35,5 @@ private:
 	float mouseDir{};
 	float mouseDis{};
 
-
+	std::unique_ptr<Throwables> hadItem;
 };

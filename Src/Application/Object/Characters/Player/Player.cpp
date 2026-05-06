@@ -4,6 +4,9 @@
 #include "Application/System/InputManager/InputManager.h"
 
 #include "Application/System/RenderManager/RenderManager.h"
+
+#include "../../Items/Throwables/Throwables.h"
+
 void Player::Init()
 {
 	objParameter.tex = RESOURCE.GetTexture("player");
@@ -27,7 +30,10 @@ void Player::PreUpdate(float dt)
 
 void Player::Update(float dt)
 {
-    Charge(dt);
+    if (hadItem)
+    {
+        hadItem->Charge(dt);
+    }
 }
 
 void Player::DrawRequest()
@@ -96,8 +102,8 @@ void Player::Charge(float dt)
 
 void Player::CalculateCursorDirection()
 {
-    POINT mp;
-    INPUT.GetMousePos(&mp);
+    Math::Vector2 mp;
+    mp = INPUT.GetMousePos();
 
     float dx = mp.x - objParameter.position.x;
     float dy = mp.y - objParameter.position.y;
