@@ -6,6 +6,9 @@
 #include "ResultScene/ResultScene.h"
 
 #include "Application/System/InputManager/InputManager.h"
+#include "Application/System/CollisionManager/CollisionManager.h"
+
+#include "Application/Object/ObjectManager.h"
 
 void SceneManager::PreUpdate(float dt)
 {
@@ -19,6 +22,8 @@ void SceneManager::Update(float dt)
 		currentScene->PreUpdate(dt);
 		currentScene->Update(dt);
 	}
+
+	CollisionManager::Instance().Update();
 
 	INPUT.Update();
 }
@@ -38,13 +43,14 @@ void SceneManager::ChangeScene(SceneType _nextScene)
 				currentScene = std::make_unique<GameScene>();
 				break;
 			case SceneType::Result:
-				//currentScene = std::make_unique<ResultScene>();
+				currentScene = std::make_unique<ResultScene>();
 				break;
 			default:
 				break;
 			}
 
 			currentSceneType = nextSceneType;
+			ObjectManager::Instance().Clear();
 			Init();
 
 			});

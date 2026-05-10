@@ -13,7 +13,7 @@ class Characters :public BaseObject
 {
 public:
 	Characters() {};
-	~Characters()override {};
+	~Characters()override;
 
 	virtual void Init()override;
 	virtual void PreUpdate(float dt)override;

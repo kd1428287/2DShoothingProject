@@ -9,10 +9,12 @@ constexpr bool CollisionTable
 [(int)CollisionLayer::Count] =
 {
     //¶‚ª©•ªAã‚ª‘Šè
-    /*                  None    PBody   EBody   */
-    /* None       */ {  false,  false,  false   },
-    /* PlayerBody */ {  false,  false,  true    },
-    /* EnemyBody  */ {  false,  true,   false   },
+    /*                  None    PBody   EBody   PProj   Break*/
+    /* None       */ {  false,  false,  false,  false,  false},
+    /* PlayerBody */ {  false,  false,  true,   false,  false},
+    /* EnemyBody  */ {  false,  true,   false,  true,   false},
+    /* PProjectile*/ {  false,  false,  true,   false,  true},
+    /* Breakable  */ {  false,  false,  true,   true,   false},
    
 };
 

@@ -4,28 +4,35 @@
 #include "Application/System/ResourceManager/ResourceManager.h"
 #include "Application/Scene/SceneManager.h"
 #include "Application/System/InputManager/InputManager.h"
+#include "Application/System/UIManager/UIManager.h"
+#include "Application/Object/ObjectManager.h"
+#include "Application/Object/Characters/Enemy/EnemyManager.h"
 
 void TitleScene::Init()
 {
+	ObjectManager::Instance().Clear();
+	EnemyManager::Instance().Clear();
+	UIManager::Instance().CreateUI(ScenePaturn::Title);
 }
 
 void TitleScene::PreUpdate(float dt)
 {
+	ObjectManager::Instance().PreUpdate(dt);
 }
 
 void TitleScene::Update(float dt)
 {
-	if(INPUT.IsTriggered('Z'))SCENEMANAGER.RequestSceneChange(SceneType::Game);
+	EnemyManager::Instance().MakeTitle(dt);
+	ObjectManager::Instance().Update(dt);
+	UIManager::Instance().Update(dt);
+	RenderManager::Instance().Update();
+	if(INPUT.IsTriggered(VK_LBUTTON))SCENEMANAGER.RequestSceneChange(SceneType::Game);
 }
 
 void TitleScene::RequestDraw()
 {
-	ObjectData data;
-	data.tex = RESOURCE.GetTexture("player");
-	data.size = { 64,64 };
-	data.target = DrawTarget::middle;
-	data.flashValue = 1.0f;
-	RENDERM.Submit(data);
+	ObjectManager::Instance().DrawRequest();
+	UIManager::Instance().DrawRequest();
 }
 
 void TitleScene::onEnter()

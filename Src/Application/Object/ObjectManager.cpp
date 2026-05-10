@@ -4,6 +4,11 @@
 #include "Application/Object/Characters/Player/PlayerManager.h"
 #include "Application/Object/Characters/Player/Player.h"
 
+
+#include "Application/Object/Characters/Enemy/EnemyManager.h"
+#include "Application/Object/Characters/Enemy/Enemy.h"
+
+
 ObjectManager::ObjectManager()
 {
 }
@@ -33,6 +38,7 @@ void ObjectManager::Add(ObjectType type, Math::Vector2 pos)
 		Add(std::move(PlayerManager::Instance().MakePlayer(pos)));
 		break;
 	case ObjectType::Enemy:
+		Add(std::move(EnemyManager::Instance().MakeEnemy()));
 		break;
 	case ObjectType::Prop:
 		break;
@@ -41,8 +47,31 @@ void ObjectManager::Add(ObjectType type, Math::Vector2 pos)
 	}
 }
 
+void ObjectManager::RangeCheck()
+{
+	Math::Vector2 pos;
+	for (auto& obj : objects_)
+	{
+		pos = obj->GetPosition();
+		if (pos.x > 700.0f || pos.x < -700.0f ||
+			pos.y > 450.0f || pos.y < -450.0f)
+		{
+			obj->Destroy();
+		}
+	}
+}
+
 void ObjectManager::PreUpdate(float dt)
 {
+	// 1. 削除フラグが立っているものを除去
+	objects_.erase(
+		std::remove_if(objects_.begin(), objects_.end(),
+			[](const std::unique_ptr<BaseObject>& obj) {
+				return obj->IsDead();
+			}),
+		objects_.end()
+	);
+
 	if (!pendingObjects_.empty())
 	{
 		// 効率化のためにメモリを予約（任意）
@@ -63,6 +92,7 @@ void ObjectManager::Update(float dt)
 	{
 		obj->PreUpdate(dt);
 		obj->Update(dt);
+		obj->PositionSync();
 	}
 }
 
@@ -72,4 +102,10 @@ void ObjectManager::DrawRequest()
 	{
 		obj->DrawRequest();
 	}
+}
+
+void ObjectManager::Clear()
+{
+	objects_.clear();
+	pendingObjects_.clear();
 }

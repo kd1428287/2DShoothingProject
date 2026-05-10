@@ -23,9 +23,13 @@ public:
     void Add(ObjectType type);
     void Add(ObjectType type, Math::Vector2 pos);
 
+    void RangeCheck();
+
     void PreUpdate(float dt);
     void Update(float dt);
     void DrawRequest();
+
+    void Clear();
 
 private:
     ObjectManager();

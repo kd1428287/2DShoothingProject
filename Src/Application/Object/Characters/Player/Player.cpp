@@ -2,114 +2,120 @@
 #include "Application/System/ResourceManager/ResourceManager.h"
 #include "Application/System/CollisionManager/Collider.h"
 #include "Application/System/InputManager/InputManager.h"
-
 #include "Application/System/RenderManager/RenderManager.h"
+#include "Application/Scene/SceneManager.h"
+#include "Application/Object/BaseObject.h"
+#include "Application/Object/ObjectManager.h"
 
+// アイテム関連
+#include "../../Items/ItemManager.h"
 #include "../../Items/Throwables/Throwables.h"
+#include "../../Items/Throwables/Stone/Stone.h"
+
+Player::~Player()
+{
+    Characters::~Characters();
+}
 
 void Player::Init()
 {
-	objParameter.tex = RESOURCE.GetTexture("player");
+    objParameter.tex = RESOURCE.GetTexture("player");
 
-    // 本体コライダー
-    auto body = std::make_unique<Collider>(
-        this, CollisionLayer::PlayerBody);
-    //body->SetAABB({ 20.0f,32.0f });
+    // 本体コライダーの設定
+    auto body = std::make_unique<Collider>(this, CollisionLayer::PlayerBody);
     body->SetCircle(32.0f);
     AddCollider(std::move(body));
 
-    objParameter.scale = { 1.0f,1.0f };
-    objParameter.size = { 64.0f,64.0f };
+    objParameter.position = { 0.0f,-300.0f };
+    objParameter.scale = { 1.3f, 1.3f };
+    objParameter.size = { 52.0f, 64.0f };
+    objParameter.priority = -0.05f;
 
+    HP = 3;
+
+    nowItem = ItemType::Stone;
+    SelectItem();
 }
 
 void Player::PreUpdate(float dt)
 {
-    CalculateCursorDirection();
+   
 }
 
 void Player::Update(float dt)
 {
+    // ★変更：入力検知から投擲までの全責務をアイテムへ委譲
     if (hadItem)
     {
-        hadItem->Charge(dt);
-    }
-}
+        // アイテム側が基準座標を得られるよう位置を追従させる
+        //hadItem->SetPosition(objParameter.position);
 
+        // アイテム自身のチャージ処理を実行し、投げられた瞬間ならマネージャーへ切り離す
+        if (hadItem->Charge(dt))
+        {
+            ObjectManager::Instance().Add(std::move(hadItem));
+            hadItem = nullptr;
+            SelectItem();
+        }
+    }
+
+
+    if (INPUT.IsTriggered(VK_RBUTTON))
+    {
+        SelectItem();
+    }
+
+    if (INPUT.IsTriggered('S'))
+    {
+        Speach = !Speach;
+    }
+    
+}
 void Player::DrawRequest()
 {
     BaseObject::DrawRequest();
 
-    // 矢印(仮置き)
-    ObjectData data;
-    data.tex = RESOURCE.GetTexture("player");
-
-    // 拡縮計算
-    float yScale = chargeRatio / 64.0f;
-    //if (yScale > 8.0f)yScale = 8.0f;
-    data.scale = { 1.0f,1.0f * yScale };
-
-    // 位置計算
-    float dir = mouseDir + DirectX::XMConvertToRadians(90);
-    Math::Vector2 radius = { 45.0f,50.0f };
-    Math::Vector2 scaleAdjust = { yScale,yScale };
-    Math::Vector2 length = radius * scaleAdjust;
-    Math::Vector2 vector = Math::Vector2(cos(dir) *  length.x, sin(dir) * length.y);
+    // ★変更：手持ちアイテムの描画（チャージ中の予測円もアイテム自らが描画します）
+    if (hadItem)
+    {
+        hadItem->DrawRequest();
+    }
+}
+void Player::Damage()
+{
+    RENDERM.StartDamageReaction();
     
-    data.position = objParameter.position + vector;
+    if (Speach)return;
+    
+    HP--;
 
-    data.size = { 64,64 };
-    data.angle = mouseDir;
-    data.target = DrawTarget::front;
-    RENDERM.Submit(data);
+    if (HP <= 0)
+    {
+        HP = 0;
+        SceneManager::Instance().RequestSceneChange(SceneType::Result);
+    }
 }
 
 void Player::OnCollision(Collider* self, const HitResult& hit)
 {
+    // 被弾処理などをここに記述
 }
 
-void Player::Throw(float pow, float dir)
+void Player::SelectItem()
 {
-}
-
-void Player::Charge(float dt)
-{
-    if (INPUT.IsTriggered(VK_LBUTTON))
+    // 石を生成して初期化
+    if (!hadItem)
     {
-        // チャージ初期化
-        chargeRatio = 1.0f;
+        hadItem = ItemManager::Instance().CreateItem(nowItem);
     }
-    else if (INPUT.IsPressed(VK_LBUTTON))
+
+    if (INPUT.IsTriggered(VK_RBUTTON))
     {
-        // チャージ中
-
-        if (chargeRatio >= 600.0f)
-        {
-            chargeRatio = 600.0f;
-            return;
-        }
-
-        //縦画面の過半
-        chargeRatio += 600.0f * dt;
+        nowItem = static_cast<ItemType>(static_cast<int>(nowItem) + 1);
+        if (nowItem == ItemType::Max)nowItem = ItemType::Stone;
     }
-    else if (INPUT.IsReleased(VK_LBUTTON))
-    {
-        // チャージ終わり
-        Throw(chargeRatio, mouseDir);
-        chargeRatio = 1.0f;
-    }
+   
+    hadItem = ItemManager::Instance().CreateItem(nowItem);
+    Math::Vector2 pos = objParameter.position + Math::Vector2(36.0f,0.0f);
+    hadItem->SetPosition(pos);
 }
-
-void Player::CalculateCursorDirection()
-{
-    Math::Vector2 mp;
-    mp = INPUT.GetMousePos();
-
-    float dx = mp.x - objParameter.position.x;
-    float dy = mp.y - objParameter.position.y;
-
-    mouseDir = std::atan2(dx,dy) * -1;
-    
-    mouseDis = sqrt(dx * dx + dy * dy);
-}
-

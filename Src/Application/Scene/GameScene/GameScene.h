@@ -7,6 +7,12 @@ public:
 	GameScene() {}
 	~GameScene() {}
 
+	static GameScene& Instance()
+	{
+		static GameScene instance;
+		return instance;
+	}
+
 	void Init()override;
 	void PreUpdate(float dt)override;
 	void Update(float dt)override;
@@ -17,7 +23,7 @@ public:
 
 protected:
 
-	KdTexture playerTex;
+	//int HP = 3;
 
 private:
 

@@ -4,9 +4,9 @@
 #include "Throwables/Stone/Stone.h"
 #include "Throwables/Bomb/Bomb.h"
 
-std::unique_ptr<Items> ItemManager::CreateItem(ItemType type)
+std::unique_ptr<Throwables> ItemManager::CreateItem(ItemType type)
 {
-	std::unique_ptr<Items> item;
+	std::unique_ptr<Throwables> item = nullptr;
 	switch (type)
 	{
 	case ItemType::Stone:
@@ -18,5 +18,8 @@ std::unique_ptr<Items> ItemManager::CreateItem(ItemType type)
 	default:
 		break;
 	}
+
+	item->Init();
+
 	return item;
 }

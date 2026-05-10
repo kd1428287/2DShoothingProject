@@ -1,7 +1,11 @@
 #pragma once
 #include "../Characters.h"
+#include <memory>
 
-class Throwables;
+#include "Application/Object/Items/Throwables/Throwables.h"
+
+//class Throwables;
+enum class ItemType;
 
 struct PlayerParameter
 {
@@ -9,31 +13,33 @@ struct PlayerParameter
 	float weight = 0.0f;
 };
 
-class Player :public Characters
+class Player : public Characters
 {
 public:
 	Player() {};
-	~Player()override {};
+	~Player() override;
 
-	void Init()override;
-	void PreUpdate(float dt)override;
-	void Update(float dt)override;
+	void Init() override;
+	void PreUpdate(float dt) override;
+	void Update(float dt) override;
 
-	void DrawRequest()override;
+	void DrawRequest() override;
 
-	virtual void OnCollision(Collider* self, const HitResult& hit)override;
+	void Damage();
+	int GetHP() { return HP; }
+
+	virtual void OnCollision(Collider* self, const HitResult& hit) override;
 
 private:
+	void SelectItem();
 
-	void Throw(float pow, float dir);
-	void Charge(float dt);
-	void CalculateCursorDirection();
+	int HP = 3;
 
 	PlayerParameter pParameter{};
 
-	float chargeRatio = 0.0f;
-	float mouseDir{};
-	float mouseDis{};
+	// ★変更：ObjectManagerへの所有権譲渡要件を満たすため unique_ptr で一元管理
+	std::unique_ptr<Throwables> hadItem = nullptr;
+	ItemType nowItem = static_cast<ItemType>(0);
 
-	std::unique_ptr<Throwables> hadItem;
+	bool Speach = false;
 };

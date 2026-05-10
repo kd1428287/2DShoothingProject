@@ -97,6 +97,12 @@
     <Filter Include="Src\Application\Object\Items\Throwables\Bomb">
       <UniqueIdentifier>{860cf655-09e0-42c4-9081-f58d44410f6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\System\ScoreManager">
+      <UniqueIdentifier>{f83e3716-480d-4a19-b0ca-4c0304209411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\System\UIManager">
+      <UniqueIdentifier>{3cf5364c-ecdb-4c77-b37f-3bbb9ed96723}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -270,6 +276,15 @@
     <ClInclude Include="Src\Application\Object\Items\ItemManager.h">
       <Filter>Src\Application\Object\Items</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\Characters\Enemy\EnemyManager.h">
+      <Filter>Src\Application\Object\Characters\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\ScoreManager\ScoreManager.h">
+      <Filter>Src\Application\System\ScoreManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\UIManager\UIManager.h">
+      <Filter>Src\Application\System\UIManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -391,6 +406,18 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Items\ItemManager.cpp">
       <Filter>Src\Application\Object\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Characters\Enemy\Enemy.cpp">
+      <Filter>Src\Application\Object\Characters\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Characters\Enemy\EnemyManager.cpp">
+      <Filter>Src\Application\Object\Characters\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\ScoreManager\ScoreManager.cpp">
+      <Filter>Src\Application\System\ScoreManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\UIManager\UIManager.cpp">
+      <Filter>Src\Application\System\UIManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

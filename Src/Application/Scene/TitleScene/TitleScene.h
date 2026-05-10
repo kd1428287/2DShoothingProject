@@ -17,8 +17,6 @@ public:
 
 protected:
 
-	KdTexture playerTex;
-
 private:
 
 };

@@ -4,14 +4,14 @@
 
 Math::Vector2 InputManager::GetMousePos()
 {
-	POINT* mp;
-	GetCursorPos(mp);
-	ScreenToClient(APP.m_window.GetWndHandle(), mp);
+	POINT mp{};
+	GetCursorPos(&mp);
+	ScreenToClient(APP.m_window.GetWndHandle(), &mp);
 
-	mp->x -= 1280 / 2;
-	mp->y = 720 / 2 - mp->y;
+	mp.x -= 1280 / 2;
+	mp.y = 720 / 2 - mp.y;
 	Math::Vector2 answer;
-	answer = { mp->x,mp->y };
+	answer = { (float)mp.x,(float)mp.y };
 	return answer;
 }
 
@@ -20,8 +20,8 @@ float InputManager::GetMouseDir(Math::Vector2 pos)
 	Math::Vector2 mp;
 	mp = INPUT.GetMousePos();
 
-	float dx = mp.x - pos.x;
-	float dy = mp.y - pos.y;
+	float dx = (float)mp.x - pos.x;
+	float dy = (float)mp.y - pos.y;
 
 	float mouseDir;
 

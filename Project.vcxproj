@@ -162,6 +162,7 @@
     <ClInclude Include="Src\Application\Object\BaseObject.h" />
     <ClInclude Include="Src\Application\Object\Characters\Characters.h" />
     <ClInclude Include="Src\Application\Object\Characters\Enemy\Enemy.h" />
+    <ClInclude Include="Src\Application\Object\Characters\Enemy\EnemyManager.h" />
     <ClInclude Include="Src\Application\Object\Characters\Enemy\Goblin\Goblin.h" />
     <ClInclude Include="Src\Application\Object\Characters\Player\Player.h" />
     <ClInclude Include="Src\Application\Object\Characters\Player\PlayerManager.h" />
@@ -187,6 +188,8 @@
     <ClInclude Include="Src\Application\System\RenderManager\ObjectData.h" />
     <ClInclude Include="Src\Application\System\RenderManager\RenderManager.h" />
     <ClInclude Include="Src\Application\System\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="Src\Application\System\ScoreManager\ScoreManager.h" />
+    <ClInclude Include="Src\Application\System\UIManager\UIManager.h" />
     <ClInclude Include="Src\System\Audio\KdAudio.h" />
     <ClInclude Include="src\System\Direct3D\KdDirect3D.h" />
     <ClInclude Include="Src\System\Direct3D\KdDirect3DHelper.h" />
@@ -212,6 +215,8 @@
     <ClCompile Include="..\Library\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Src\Application\Object\BaseObject.cpp" />
     <ClCompile Include="Src\Application\Object\Characters\Characters.cpp" />
+    <ClCompile Include="Src\Application\Object\Characters\Enemy\Enemy.cpp" />
+    <ClCompile Include="Src\Application\Object\Characters\Enemy\EnemyManager.cpp" />
     <ClCompile Include="Src\Application\Object\Characters\Enemy\Goblin\Goblin.cpp" />
     <ClCompile Include="Src\Application\Object\Characters\Player\Player.cpp" />
     <ClCompile Include="Src\Application\Object\Characters\Player\PlayerManager.cpp" />
@@ -231,6 +236,8 @@
     <ClCompile Include="Src\Application\System\InputManager\InputManager.cpp" />
     <ClCompile Include="Src\Application\System\RenderManager\RenderManager.cpp" />
     <ClCompile Include="Src\Application\System\ResourceManager\ResourceManager.cpp" />
+    <ClCompile Include="Src\Application\System\ScoreManager\ScoreManager.cpp" />
+    <ClCompile Include="Src\Application\System\UIManager\UIManager.cpp" />
     <ClCompile Include="Src\System\Audio\KdAudio.cpp" />
     <ClCompile Include="src\System\Direct3D\KdDirect3D.cpp" />
     <ClCompile Include="Src\System\Direct3D\KdDirect3DHelper.cpp" />

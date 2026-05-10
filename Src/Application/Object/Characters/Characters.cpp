@@ -1,6 +1,11 @@
 #include "Characters.h"
 #include "Application/System/RenderManager/ObjectData.h"
 
+Characters::~Characters()
+{
+	BaseObject::~BaseObject();
+}
+
 void Characters::Init()
 {
 }
@@ -16,5 +21,5 @@ void Characters::Update(float dt)
 
 void Characters::Movement(float dt)
 {
-	objParameter.position += charaParameter.moveDir * dt;
+	objParameter.position += charaParameter.moveDir * charaParameter.moveSpeed * dt;
 }

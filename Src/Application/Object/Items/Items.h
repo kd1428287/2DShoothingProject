@@ -6,5 +6,5 @@ class Items :public BaseObject
 {
 public:
 	Items() {};
-	virtual ~Items()override {};
+	virtual ~Items()override { BaseObject::~BaseObject(); };
 };

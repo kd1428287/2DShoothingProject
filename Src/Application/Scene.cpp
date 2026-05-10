@@ -46,10 +46,24 @@ void Scene::Update()
 
 void Scene::Init()
 {
+	srand(timeGetTime());
+
 	SCENEMANAGER.RequestSceneChange(SceneType::Title);
 
-	RESOURCE.LoadTexture("player", "Texture/player.png");
+	RESOURCE.LoadTexture("player", "Texture/Object/Player/Player.png");
 	RESOURCE.LoadTexture("dot", "Texture/System/dot.png");
+	RESOURCE.LoadTexture("box", "Texture/System/box.png");
+	RESOURCE.LoadTexture("troll", "Texture/Object/Enemy/troll.png");
+	RESOURCE.LoadTexture("stone", "Texture/Object/Item/stone.png");
+	RESOURCE.LoadTexture("bomb", "Texture/Object/Item/bomb.png");
+	RESOURCE.LoadTexture("explosion", "Texture/Object/Item/explosion.png");
+	RESOURCE.LoadTexture("forest", "Texture/System/background.png");
+	RESOURCE.LoadTexture("shadow", "Texture/Object/shadow.png");
+
+	RESOURCE.LoadTexture("logo", "Texture/System/Title/TitleLogo.png");
+	RESOURCE.LoadTexture("titleUI", "Texture/System/Title/ClickToStart.png");
+
+	RESOURCE.LoadTexture("number", "Texture/System/Game/number.png");
 
 	
 }
