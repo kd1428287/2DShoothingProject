@@ -10,7 +10,6 @@ public:
 	void Init() override;
 	void Update(float dt) override;
 
-	// ★変更：戻り値を bool に変更し、mouseDir引数を削除
 	bool Charge(float dt) override;
 	void ThrowStart(Math::Vector2 startPos, float dirAngle, float power) override;
 
@@ -24,12 +23,12 @@ private:
 private:
 	float chargeRatio = 1.0f;
 	float chargeMax = 700.0f;
-	float currentMouseDir = 0.0f; // ★追加：取得したマウス方向を保持
+	float currentMouseDir = 0.0f;
 
 	Math::Vector2 startPos{};
 	Math::Vector2 targetPos{};
 	Math::Vector2 flightDir{};
-	Math::Vector2 groundPos{};
+	// ★ groundPos を削除（objParameter.position に統合）
 
 	float flightDistance = 0.0f;
 	float currentMoved = 0.0f;

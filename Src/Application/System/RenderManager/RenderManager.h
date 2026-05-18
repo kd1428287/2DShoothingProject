@@ -35,10 +35,13 @@ private:
 	~RenderManager() {}
 
 	void BackgroundDraw();
+	void TreeGeneration();
 
 	void DrawQueue(std::vector<ObjectData>& queue_);
 
 	KdTexture* backTex;
+	KdTexture* treeTex;
+
 	KdTexture tmpTex;
 	float tmpScale{};
 	float scrWidth = 1280;

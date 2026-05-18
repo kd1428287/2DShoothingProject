@@ -14,9 +14,9 @@ struct ObjectData
 	Math::Vector2 size{};
 	Math::Vector2 scale = Math::Vector2(1,1);
 	Math::Vector2 rectPosition{};
+	float footPosition{};
 	float angle{};
 	float priority{};
-	float footPosition{};
 	Math::Matrix mat{};
 	Math::Color color = { 1.0f,1.0f,1.0f,1.0f };
 	float flashValue{};

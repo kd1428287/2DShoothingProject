@@ -48,6 +48,7 @@ void RenderManager::DrawSprite()
     D3D.SetBlendState(BlendMode::Alpha);
 
     BackgroundDraw();
+    TreeGeneration();
 
     DrawQueue(backQueue);
     DrawQueue(middleQueue);
@@ -113,6 +114,9 @@ void RenderManager::Submit(std::shared_ptr<ObjectData> queue)
     queue->mat = Math::Matrix::CreateScale(queue->scale.x, queue->scale.y, 1) *
         Math::Matrix::CreateRotationZ(queue->angle) *
         Math::Matrix::CreateTranslation(queue->position.x, queue->position.y, 0);
+
+    //queue->footPosition = queue->position.y - queue->tall;
+
     switch (queue->target)
     {
     case DrawTarget::back:
@@ -160,7 +164,8 @@ RenderManager::RenderManager()
     tmpTex.CreateRenderTarget(scrWidth, scrHeight);
     tmpScale = 1.0f;
 
-    backTex = RESOURCE.GetTexture("forest");
+    backTex = RESOURCE.GetTexture("background");
+    treeTex = RESOURCE.GetTexture("tree");
 
     fadeAlpha = 0.0f;
     fadeColor = { 0.0f,0.0f,0.0f,fadeAlpha };
@@ -168,10 +173,59 @@ RenderManager::RenderManager()
 
 void RenderManager::BackgroundDraw()
 {
-    Math::Matrix mat = Math::Matrix::CreateScale(1280.0f / 1600.0f, 760.0f / 1200.0f, 1) *
+    Math::Matrix mat = Math::Matrix::CreateScale(0.7f,0.7f,1.0f) *
         Math::Matrix::CreateTranslation(0, 0, 0);
     SHADER.m_spriteShader.SetMatrix(mat);
-    SHADER.m_spriteShader.DrawTex_color(backTex, Math::Rectangle(0, 0, 1600, 1200), { 1.0f,1.0f,1.0f,1.0f });
+    SHADER.m_spriteShader.DrawTex_color(backTex, Math::Rectangle(0, 0, 2680, 1600), { 1.0f,1.0f,1.0f,1.0f });
+}
+
+void RenderManager::TreeGeneration()
+{
+    ObjectData data;
+    data.tex = treeTex;
+    data.size = { 500,500 };
+    data.scale = { 0.5f,0.5f };
+    
+
+    data.position = { -600.0f,289.0f };
+    data.footPosition = data.position.y - 120.0f;
+    
+    Submit(data);
+
+    data.position = { -630.0f,75.0f };
+    data.footPosition = data.position.y - 120.0f;
+ 
+    Submit(data);
+
+    data.position = { -570.0f,-80.0f };
+    data.footPosition = data.position.y - 120.0f;
+    
+    Submit(data);
+
+    data.position = { -610.0f,-273.0f };
+    data.footPosition = data.position.y - 120.0f;
+  
+    Submit(data);
+
+    data.position = { 630.0f,308.0f };
+    data.footPosition = data.position.y - 120.0f;
+    
+    Submit(data);
+
+    data.position = { 613.0f,78.0f };
+    data.footPosition = data.position.y - 120.0f;
+  
+    Submit(data);
+
+    data.position = { 580.0f,-103.0f };
+    data.footPosition = data.position.y - 120.0f;
+  
+    Submit(data);
+
+    data.position = { 620.0f,-303.0f };
+    data.footPosition = data.position.y - 120.0f;
+  
+    Submit(data);
 }
 
 void RenderManager::DrawQueue(std::vector<ObjectData>& queue_)

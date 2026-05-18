@@ -103,6 +103,18 @@
     <Filter Include="Src\Application\System\UIManager">
       <UniqueIdentifier>{3cf5364c-ecdb-4c77-b37f-3bbb9ed96723}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\Items\Barrier">
+      <UniqueIdentifier>{7432cf55-4e8e-47be-8572-eb282a742226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\System\EffectManager">
+      <UniqueIdentifier>{dda3adb2-7fcb-4e30-9e0a-61322cd4ad59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\System\EffectManager\Effects">
+      <UniqueIdentifier>{69e2e8f8-f9ce-4765-97b7-07a705a1dd54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\System\UIManager\UIObject">
+      <UniqueIdentifier>{91fee358-f575-49cc-bc64-616548753918}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -285,6 +297,21 @@
     <ClInclude Include="Src\Application\System\UIManager\UIManager.h">
       <Filter>Src\Application\System\UIManager</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\Items\Barrier\Fence.h">
+      <Filter>Src\Application\Object\Items\Barrier</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\EffectManager\EffectManager.h">
+      <Filter>Src\Application\System\EffectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\EffectManager\Effects\Effect1.h">
+      <Filter>Src\Application\System\EffectManager\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\EffectManager\Effects\BaseEffect.h">
+      <Filter>Src\Application\System\EffectManager\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\UIManager\UIObject\GameUIObject.h">
+      <Filter>Src\Application\System\UIManager\UIObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -418,6 +445,21 @@
     </ClCompile>
     <ClCompile Include="Src\Application\System\UIManager\UIManager.cpp">
       <Filter>Src\Application\System\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Items\Barrier\Fence.cpp">
+      <Filter>Src\Application\Object\Items\Barrier</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\EffectManager\EffectManager.cpp">
+      <Filter>Src\Application\System\EffectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\EffectManager\Effects\Effect1.cpp">
+      <Filter>Src\Application\System\EffectManager\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\EffectManager\Effects\BaseEffect.cpp">
+      <Filter>Src\Application\System\EffectManager\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\UIManager\UIObject\GameUIObject.cpp">
+      <Filter>Src\Application\System\UIManager\UIObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

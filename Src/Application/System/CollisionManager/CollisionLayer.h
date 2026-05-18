@@ -8,6 +8,8 @@ enum class CollisionLayer
     EnemyBody,         // “G–{‘Ì
     PlayerProjectile,  // ©‹@‰“‹——£UŒ‚
     breakable,         // ”j‰ó‰Â”\
+    Barrier,           // áŠQ
+    EnemyAttack,        // “GUŒ‚
 
     Count
 };

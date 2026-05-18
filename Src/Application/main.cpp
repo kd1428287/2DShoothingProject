@@ -103,6 +103,8 @@ bool Application::Init(int w, int h)
 		io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\msgothic.ttc", 13.0f, &config, glyphRangesJapanese);
 	}
 
+	ShowCursor(false);
+
 	return true;
 }
 

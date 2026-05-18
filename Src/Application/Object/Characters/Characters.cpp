@@ -3,7 +3,6 @@
 
 Characters::~Characters()
 {
-	BaseObject::~BaseObject();
 }
 
 void Characters::Init()

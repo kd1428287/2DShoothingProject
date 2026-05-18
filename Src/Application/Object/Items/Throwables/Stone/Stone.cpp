@@ -3,14 +3,22 @@
 #include "Application/System/CollisionManager/Collider.h"
 #include "Application/System/RenderManager/RenderManager.h"
 #include "Application/System/ResourceManager/ResourceManager.h"
+#include "Application/System/CollisionManager/CollisionHitResult.h"
+#include "Application/System/EffectManager/EffectManager.h"
 #include <cmath>
 
 void Stone::Init()
 {
 	objParameter.tex = RESOURCE.GetTexture("stone");
-	objParameter.scale = { 0.8f, 0.8f };
+	objParameter.scale = { 2.0f, 2.0f };
 	objParameter.size = { 64.0f, 64.0f };
-	objParameter.color = { 1.0f, 1.0f, 1.0f, 1.0f }; // 初期色（完全不透明）
+	objParameter.visualSize = { 64.0f * 0.8f,64.0f * 0.8f };
+	objParameter.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	objParameter.priority = 1.0f;
+
+	// ★追加：足元位置のオフセットと浮遊パラメータを初期化
+	objParameter.tall = 30.0f;
+	objParameter.floating = 0.0f;
 
 	auto col = std::make_unique<Collider>(this, CollisionLayer::PlayerProjectile);
 	col->SetCircle(16.0f);
@@ -26,7 +34,6 @@ void Stone::Init()
 
 bool Stone::Charge(float dt)
 {
-	// ★追加：自身の現在位置をもとにマウス方向を取得
 	currentMouseDir = INPUT.GetMouseDir(objParameter.position);
 
 	if (INPUT.IsTriggered(VK_LBUTTON))
@@ -40,7 +47,6 @@ bool Stone::Charge(float dt)
 	}
 	else if (INPUT.IsReleased(VK_LBUTTON))
 	{
-		// ★追加：指を離したら自ら投擲を開始し、投げたことを通知する
 		ThrowStart(objParameter.position, currentMouseDir, chargeRatio);
 		chargeRatio = 1.0f;
 		return true;
@@ -52,18 +58,18 @@ bool Stone::Charge(float dt)
 void Stone::ThrowStart(Math::Vector2 startPos_, float dirAngle, float power)
 {
 	startPos = startPos_;
-	groundPos = startPos;
 	SetPosition(startPos);
+	objParameter.scale = { 0.8f,0.8f };
 
-	// 方向ベクトルを計算して保持（慣性バウンドでも使用するため）
 	flightDir = Math::Vector2(std::cos(dirAngle + DirectX::XMConvertToRadians(90)), std::sin(dirAngle + DirectX::XMConvertToRadians(90)));
 	targetPos = startPos + flightDir * power;
 
 	flightDistance = (targetPos - startPos).Length();
 	currentMoved = 0.0f;
 
-	// 色を完全不透明にリセット（再利用などを考慮）
 	objParameter.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	objParameter.floating = 0.0f; // 投げ始めの高さをリセット
+	objParameter.priority = 0.0f;
 
 	if (!colliders_.empty()) {
 		colliders_[0]->SetPosition(startPos);
@@ -79,6 +85,17 @@ void Stone::ThrowStart(Math::Vector2 startPos_, float dirAngle, float power)
 	if (dir.x > 0) rotateSpeed *= -1;
 
 	isShadow = true;
+}
+
+void Stone::OnCollision(Collider* self, const HitResult& hit)
+{
+	if (hit.other->GetLayer() == CollisionLayer::EnemyBody)
+	{
+		if (!isEnemyHit) {
+			Throwables::OnCollision(self, hit);
+			isEnemyHit = true;
+		}
+	}
 }
 
 void Stone::Update(float dt)
@@ -104,13 +121,13 @@ void Stone::Update(float dt)
 		// 着弾判定
 		if (t >= 1.0f)
 		{
-			groundPos = targetPos; // バウンドの基準位置を着弾点に設定
-			SetPosition(groundPos);
+			SetPosition(targetPos); // バウンドの基準位置を着弾点に設定
 			objParameter.scale = { 1.0f, 1.0f };
+			objParameter.floating = 0.0f; // 着地
 
 			// 着弾した瞬間に当たり判定をオン
 			if (!colliders_.empty()) {
-				colliders_[0]->SetPosition(groundPos);
+				colliders_[0]->SetPosition(objParameter.position);
 				colliders_[0]->SetEnable(true);
 			}
 
@@ -118,24 +135,26 @@ void Stone::Update(float dt)
 			else rotateSpeed -= 5.0f;
 
 			thParameter.state = ThrowState::Point;
-			lifeTimer = MAX_BOUNCE_TIME; // バウンド全体の時間をセット
-			isHitDeactivated = false;    // 判定オフ用フラグをリセット
+			EffectManager::Instance().CreateEffect(EffectPaturn::impact1, objParameter.position, objParameter.visualSize * 2.0f);
+			lifeTimer = MAX_BOUNCE_TIME;
+			isHitDeactivated = false;
 		}
 		else
 		{
-			// 飛翔中の放物線表現（スケール変化）
-			float heightBonus = std::sin(t * 3.141592f) * 1.0f;
+			// 飛翔中の放物線表現
+			float heightBonus = std::sin(t * 3.141592f) * 2.0f;
 			float alpha = 1.0f - heightBonus * 0.3f;
 			objParameter.color = { 1.0f, 1.0f, 1.0f, alpha };
 			objParameter.scale = { 0.8f * (1.0f + heightBonus), 0.8f * (1.0f + heightBonus) };
 
-			Math::Vector2 currentPos = startPos + (targetPos - startPos) * t;
-			groundPos = currentPos;
-			currentPos.y += heightBonus * 100.0f * flightDistance / chargeMax;
-			SetPosition(currentPos);
+			// ★変更：平面の移動位置を position にセットし、高さを floating に割り当てる
+			Math::Vector2 currentFlatPos = startPos + (targetPos - startPos) * t;
+			SetPosition(currentFlatPos);
+
+			objParameter.floating = heightBonus * 100.0f * flightDistance / chargeMax;
 
 			if (!colliders_.empty()) {
-				colliders_[0]->SetPosition(currentPos);
+				colliders_[0]->SetPosition(currentFlatPos);
 			}
 		}
 		break;
@@ -144,48 +163,38 @@ void Stone::Update(float dt)
 	case ThrowState::Point:
 	{
 		// 1. 着弾直後のフレームで当たり判定をすぐに消す（一瞬だけヒットさせるため）
-		if (!isHitDeactivated && hitCount_ >= 0.1f)
+		if (!isHitDeactivated)
 		{
 			if (!colliders_.empty()) {
 				colliders_[0]->SetEnable(false);
 			}
 			isHitDeactivated = true;
 		}
-		else if (hitCount_ < 0.1f)
-		{
-			hitCount_ += dt;
-		}
 
 		lifeTimer -= dt;
 		if (lifeTimer <= 0.0f)
 		{
 			objParameter.isDead = true;
-			objParameter.color.w = 0.0f; // 完全に透明にする
+			objParameter.color.w = 0.0f;
 
 			if (objParameter.color.w <= 0.0f) Destroy();
 		}
 		else
 		{
-			// バウンド進行度（0.0：着弾直後 〜 1.0：消滅直前）
 			float bounceRatio = 1.0f - (lifeTimer / MAX_BOUNCE_TIME);
 
-			// 2. 慣性移動：投げた方向へ少しだけ転がす（時間経過で減速させる）
+			// 2. 慣性移動：投げた方向へ少しだけ転がす（地面の座標自体を進める）
 			float currentBounceSpeed = moveSpeed * 0.25f * (1.0f - bounceRatio);
-			groundPos += flightDir * currentBounceSpeed * dt;
+			SetPosition(objParameter.position + flightDir * currentBounceSpeed * dt);
 
 			// 3. バウンド高さ計算
-			// abs(sin) を使って跳ねる動きを作る。角度に 3.0\pi をかけると約2〜3回跳ねる
 			float bounceAngle = bounceRatio * 3.141592f * 3.0f;
-			// 跳ねる高さの上限も時間経過で低くしていく
 			float maxHeight = 24.0f * (1.0f - bounceRatio);
-			float bounceHeight = std::abs(std::sin(bounceAngle)) * maxHeight;
 
-			// 描画位置の更新（地面座標 + 上方向へのバウンド高さ）
-			// ※画面上方向がYプラスの座標系を想定しています
-			SetPosition(groundPos + Math::Vector2(0.0f, bounceHeight));
+			// ★変更：跳ねる高さを floating パラメータに預ける
+			objParameter.floating = std::abs(std::sin(bounceAngle)) * maxHeight;
 
 			// 4. 透明度の更新（フェードアウト）
-			// 残り時間に応じて 1.0 (不透明) から 0.0 (透明) へ減衰させる
 			objParameter.color.w = lifeTimer / MAX_BOUNCE_TIME;
 		}
 		break;
@@ -200,7 +209,6 @@ void Stone::DrawRequest()
 {
 	if (objParameter.isDead) return;
 
-	// ★変更：影生成ロジックを使わずに、個別にObjectDataを作成して予測円を描画
 	if (thParameter.state == ThrowState::None && chargeRatio > 1.0f)
 	{
 		Math::Vector2 predDir(std::cos(currentMouseDir + DirectX::XMConvertToRadians(90)),
@@ -210,15 +218,16 @@ void Stone::DrawRequest()
 
 		ObjectData predData;
 		predData.tex = RESOURCE.GetTexture("shadow");
-		predData.position = { predPos.x, predPos.y - 30.0f }; // 影と同じ足元オフセット
+		// ★変更：定数リテラルではなく objParameter.tall を活用
+		predData.position = { predPos.x, predPos.y - objParameter.tall };
 		predData.size = { 64.0f, 64.0f };
-		predData.scale = { 1.0f, 0.35f }; // 見下ろし視点に合わせて楕円形に潰す
+		predData.scale = { 1.0f, 0.35f };
 		predData.scale *= 2.0f;
 		predData.rectPosition = { 0.0f, 0.0f };
 		predData.angle = 0.0f;
-		predData.priority = objParameter.priority - 0.1f; // 本体の背面に描画
+		predData.priority = objParameter.priority - 0.1f;
 		predData.footPosition = predPos.y;
-		predData.color = { 1.0f, 1.0f, 1.0f, 0.5f }; // 半透明で表示
+		predData.color = { 1.0f, 1.0f, 1.0f, 0.5f };
 		predData.target = objParameter.target;
 		predData.addEffect = false;
 		predData.mat = Math::Matrix(1.f, 0, 0, 0,
@@ -232,7 +241,8 @@ void Stone::DrawRequest()
 	// 飛翔・バウンド中の通常の影表示
 	if (isShadow && thParameter.state != ThrowState::None)
 	{
-		DrawShadow(groundPos, -8.0f);
+		// 親クラス側で objParameter.floating に応じた影の縮小・減衰処理が適用されます
+		DrawShadow(objParameter);
 	}
 
 	BaseObject::DrawRequest();

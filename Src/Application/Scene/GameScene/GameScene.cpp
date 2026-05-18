@@ -12,16 +12,18 @@
 
 //‹Ù‹}
 #include "Application/Object/Characters/Enemy/EnemyManager.h"
+#include "Application/Object/Items/ItemManager.h"
 
 
 void GameScene::Init()
 {
-	Math::Vector2 startPoint = { 0,-300 };
+	Math::Vector2 startPoint = { 0,-350 };
 	ObjectManager::Instance().Clear();
 	EnemyManager::Instance().Clear();
 	ScoreManager::Instance().Clear();
 	ObjectManager::Instance().Add(ObjectType::Player,startPoint);
 	ObjectManager::Instance().Add(ObjectType::Enemy);
+	ItemManager::Instance().CreateBarrier();
 
 	UIManager::Instance().CreateUI(ScenePaturn::Game);
 }

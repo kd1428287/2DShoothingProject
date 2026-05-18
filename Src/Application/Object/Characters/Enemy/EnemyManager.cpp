@@ -61,7 +61,6 @@ void EnemyManager::MakeTitle(float dt)
 		ObjectManager::Instance().Add(ObjectType::Enemy);
 		makeCount = 0.0f;
 	}
-
 }
 
 void EnemyManager::Clear()
@@ -71,5 +70,5 @@ void EnemyManager::Clear()
 	maxMakeNum = 1;
 	makeSpeed = 0.5f;
 	makeCount = 0.0f;
-	levelSpeed = 0.5f;
+	levelSpeed = 1.0f;
 }

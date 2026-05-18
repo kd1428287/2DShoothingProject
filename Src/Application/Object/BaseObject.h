@@ -13,10 +13,12 @@ struct ObjectParameter
 	Math::Vector2 velocity{};
 	Math::Vector2 size{};
 	Math::Vector2 scale = Math::Vector2(1, 1);
+	Math::Vector2 visualSize{};
 	Math::Vector2 rectPosition{};
 	float angle{};
 	float priority{};
-	float footPosition = -9999.9f;
+	float tall = -9999.9f;
+	float floating = 0.0f;
 	Math::Matrix mat{};
 	Math::Color color = { 1.0f,1.0f,1.0f,1.0f };
 	float flashValue{};
@@ -43,9 +45,11 @@ public:
 	void AddCollider(std::unique_ptr<Collider> collider);
 	const std::vector<std::unique_ptr<Collider>>& GetColliders() const;
 	virtual void OnCollision(Collider* self, const HitResult& hit) {}
+	virtual void Damage(int damage) {};
 
 	//セッター
 	void SetPosition(Math::Vector2 position) { objParameter.position = position; };
+	//void SetFoot() { objParameter.footPosition = objParameter.position.y - objParameter.size.y / 2.0f * objParameter.scale.y; };
 	void Destroy() { objParameter.isDead = true; }
 
 	bool IsDead() { return objParameter.isDead; }
@@ -53,7 +57,8 @@ public:
 
 protected:
 
-	void DrawShadow(const Math::Vector2& groundPos, float shadowHeightOffset = 0.0f);
+	//void DrawShadow(const Math::Vector2& groundPos, float shadowHeightOffset = 0.0f);
+	void DrawShadow(const ObjectParameter& param);
 
 	ObjectParameter objParameter;
 	// 複数コライダー対応（本体＋盾など）

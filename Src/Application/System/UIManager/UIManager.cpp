@@ -2,11 +2,12 @@
 #include "Application/Object/BaseObject.h"
 #include "Application/System/RenderManager/RenderManager.h"
 #include "Application/System/ResourceManager/ResourceManager.h"
-
-// ※実際の環境に合わせて各マネージャーのヘッダーをインクルードしてください
 #include "Application/System/ScoreManager/ScoreManager.h"
+#include "Application/System/InputManager/InputManager.h"
 #include "Application/Object/Characters/Player/PlayerManager.h"
 #include "Application/Object/Characters/Player/Player.h"
+#include "Application/Object/Items/ItemManager.h"
+#include "Application/System/UIManager/UIObject/GameUIObject.h"
 
 namespace {
 
@@ -34,16 +35,18 @@ namespace {
 			ObjectData data;
 			data.tex = objParameter.tex;
 			data.target = DrawTarget::UI;
-			data.size = { 32.0f, 32.0f }; // 1コマのピクセルサイズ
-			data.scale = { 2.0f, 2.0f };
+			data.size = { 60.0f, 75.0f };
+			data.scale = { 1.0f, 1.0f };
 
 			// 右上の基準位置
 			Math::Vector2 currentPos = { 600.0f, 320.0f };
-			float spacing = 26.0f * data.scale.x; // 文字の間隔
+			float spacing = 48.0f * data.scale.x; // 文字の間隔
 
+			// スコアが0の場合の処理
 			if (score == 0) {
 				data.position = currentPos;
-				data.rectPosition = { 9 * 32.0f, 0.0f }; // 0は一番右（9番目）
+				// 0はインデックス9 -> 列4(9%5), 段1(9/5)
+				data.rectPosition = { 4 * data.size.x, 1 * data.size.y };
 				RENDERM.Submit(data);
 				return;
 			}
@@ -53,12 +56,16 @@ namespace {
 				int digit = score % 10;
 				score /= 10;
 
-				// ★画像が「1 2 3 4 5 6 7 8 9 0」の場合のロジック
 				// 1~9なら(n-1)、0なら9番目のインデックスを使用
 				int drawIdx = (digit == 0) ? 9 : (digit - 1);
 
+				// ★横5列の2段配置に対応する計算
+				int col = drawIdx % 5; // 列 (0〜4)
+				int row = drawIdx / 5; // 段 (0〜1)
+
 				data.position = currentPos;
-				data.rectPosition = { drawIdx * 32.0f, 0.0f };
+				// 画像の切り出し始点（左上基準を想定）を設定
+				data.rectPosition = { col * data.size.x, row * data.size.y };
 				RENDERM.Submit(data);
 
 				currentPos.x -= spacing; // 左へずらす
@@ -83,9 +90,7 @@ namespace {
 
 		void DrawRequest() override
 		{
-			// ※実際のプレイヤー管理に合わせて残り耐久力を取得してください
 			int currentHP = PlayerManager::Instance().GetPlayer()->GetHP();
-			//int currentHP = 3; // 仮の値
 
 			ObjectData data;
 			data.tex = objParameter.tex;
@@ -111,63 +116,7 @@ namespace {
 	// ========================================================
 	// 3. アイテムスロット表示用UIオブジェクト
 	// ========================================================
-	class ItemSlotUI : public BaseObject
-	{
-	public:
-		ItemSlotUI() {}
-		~ItemSlotUI() override {}
-
-		void Init() override
-		{
-			objParameter.target = DrawTarget::UI;
-		}
-
-		void DrawRequest() override
-		{
-			KdTexture* boxTex = RESOURCE.GetTexture("box");
-			KdTexture* stoneTex = RESOURCE.GetTexture("stone");
-			KdTexture* bombTex = RESOURCE.GetTexture("bomb");
-
-			ObjectData data;
-			data.target = DrawTarget::UI;
-			data.scale = { 1.0f, 1.0f };
-			data.color = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-			// --- スロット1（Stone用） ---
-			Math::Vector2 slot1Pos = { 150.0f, -300.0f };
-
-			// 1. 背景のボックスを描画 (96x96)
-			data.tex = boxTex;
-			data.position = slot1Pos;
-			data.size = { 96.0f, 96.0f };
-			data.rectPosition = { 0.0f, 0.0f };
-			RENDERM.Submit(data);
-
-			// 2. 中身のStoneを描画 (ボックスに収まるよう64x64に縮小)
-			// ※安定ソート仕様により、後からSubmitしたものが上に重なります
-			data.tex = stoneTex;
-			data.position = slot1Pos;
-			data.size = { 64.0f, 64.0f };
-			RENDERM.Submit(data);
-
-
-			// --- スロット2（Bomb用） ---
-			// ボックスが重ならないようX座標を適度にずらして配置
-			Math::Vector2 slot2Pos = { 260.0f, -300.0f };
-
-			// 1. 背景のボックスを描画
-			data.tex = boxTex;
-			data.position = slot2Pos;
-			data.size = { 96.0f, 96.0f };
-			RENDERM.Submit(data);
-
-			// 2. 中身のBombを描画
-			data.tex = bombTex;
-			data.position = slot2Pos;
-			data.size = { 64.0f, 64.0f };
-			RENDERM.Submit(data);
-		}
-	};
+	
 
 	// ========================================================
 	// 4. リザルト画面用スコア表示UI（中央・カウントアップ演出）
@@ -240,12 +189,13 @@ namespace {
 			ObjectData data;
 			data.tex = objParameter.tex;
 			data.target = DrawTarget::UI;
-			data.size = { 32.0f, 32.0f }; // 1コマのピクセルサイズ
+			// ※実際の2段画像の1コマ分のピクセルサイズに合わせて調整してください
+			data.size = { 60.0f, 75.0f };
 
-			// ★状態に応じて変動するスケールを適用
+			// 状態に応じて変動するスケールを適用
 			data.scale = { currentScale_, currentScale_ };
 
-			float spacing = 26.0f * data.scale.x; // 文字の間隔
+			float spacing = 48.0f * data.scale.x; // 文字の間隔
 
 			// 桁数を計算して、画面中心に表示されるように調整
 			int tempScore = score;
@@ -269,7 +219,8 @@ namespace {
 			if (score == 0)
 			{
 				data.position = currentPos;
-				data.rectPosition = { 9 * 32.0f, 0.0f }; // 0は一番右（9番目）
+				// 0はインデックス9 -> 列4(9%5), 段1(9/5)
+				data.rectPosition = { 4 * data.size.x, 1 * data.size.y };
 				RENDERM.Submit(data);
 				return;
 			}
@@ -282,8 +233,12 @@ namespace {
 
 				int drawIdx = (digit == 0) ? 9 : (digit - 1);
 
+				// ★横5列の2段配置に対応する計算
+				int col = drawIdx % 5;
+				int row = drawIdx / 5;
+
 				data.position = currentPos;
-				data.rectPosition = { drawIdx * 32.0f, 0.0f };
+				data.rectPosition = { col * data.size.x, row * data.size.y };
 				RENDERM.Submit(data);
 
 				currentPos.x -= spacing; // 左へずらす
@@ -314,6 +269,10 @@ namespace {
 		{
 			logoTex_ = RESOURCE.GetTexture("logo");
 			tuiTex_ = RESOURCE.GetTexture("titleUI");
+			torchTex_ = RESOURCE.GetTexture("torch");
+
+			mousePos = { 0.0f,0.0f };
+
 			objParameter.target = DrawTarget::UI;
 
 			// ★変数の初期化
@@ -331,6 +290,8 @@ namespace {
 			// （完全に消えず、少しだけ見える状態から不透明に戻るループです）
 			// ※完全に消したい場合は alpha_ = 0.5f + 0.5f * sinf(timer_); にしてください
 			alpha_ = 0.6f + 0.4f * sinf(timer_);
+
+			mousePos = INPUT.GetMousePos();
 		}
 
 		void DrawRequest() override
@@ -343,10 +304,16 @@ namespace {
 			{
 				data.color = { 1.0f, 1.0f, 1.0f, 1.0f };
 				data.tex = logoTex_;
-				data.size = { 600.0f, 100.0f };
-				data.scale = { 2.0f, 2.0f };
+				data.size = { 1024.0f, 171.0f };
+				data.scale = { 1.0f, 1.0f };
 				data.position = { 0.0f, 100.0f };
 				data.rectPosition = { 0.0f, 0.0f };
+				RENDERM.Submit(data);
+
+				data.position = { 0.0f,80.0f };
+				data.color = { 0.0f,0.0f,0.0f, 1.0f };
+				data.scale = { 1.02f,1.01f };
+				data.priority = -1.0f;
 				RENDERM.Submit(data);
 			}
 
@@ -361,11 +328,27 @@ namespace {
 				data.rectPosition = { 0.0f, 0.0f };
 				RENDERM.Submit(data);
 			}
+
+			if (torchTex_)
+			{
+				data.color.w = 1.0f;
+				data.tex = torchTex_;
+				data.size = { 1024.0f,1024.0f };
+				data.scale = { 1.0f / 16.0f,1.0f / 16.0f };
+				data.position = mousePos;
+				if (INPUT.IsPressed(VK_LBUTTON))data.angle = 120.0f;
+				else data.angle = 0.0f;
+				RENDERM.Submit(data);
+				
+			}
 		}
 
 	private:
 		KdTexture* logoTex_ = nullptr;
 		KdTexture* tuiTex_ = nullptr;
+		KdTexture* torchTex_ = nullptr;
+
+		Math::Vector2 mousePos{};
 
 		// ★追加：点滅制御用の変数
 		float alpha_ = 1.0f;

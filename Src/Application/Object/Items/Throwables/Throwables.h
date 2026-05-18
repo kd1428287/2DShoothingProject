@@ -34,6 +34,8 @@ public:
 	// プレイヤーからスタート座標、飛ぶ方向、チャージ量（飛距離）を受け取る
 	virtual void ThrowStart(Math::Vector2 startPos, float dirAngle, float power);
 
+	void OnCollision(Collider* self, const HitResult& hit)override;
+
 protected:
 	// 着弾した瞬間に呼ばれる仮想関数（石と爆弾で個別実装）
 	virtual void OnLanding() {};

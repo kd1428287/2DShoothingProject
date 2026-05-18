@@ -2,6 +2,7 @@
 
 class Items;
 class Throwables;
+class BaseObject;
 
 enum class ItemType
 {
@@ -18,8 +19,9 @@ public:
 		static ItemManager instance;
 		return instance;
 	}
-	//std::unique_ptr<Items> CreateItem(ItemType type);
+	
 	std::unique_ptr<Throwables> CreateItem(ItemType type);
+	void CreateBarrier();
 private:
 	ItemManager() {};
 	~ItemManager() {};

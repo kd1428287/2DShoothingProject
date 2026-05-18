@@ -50,20 +50,42 @@ void Scene::Init()
 
 	SCENEMANAGER.RequestSceneChange(SceneType::Title);
 
+	// 背景
+	RESOURCE.LoadTexture("background", "Texture/System/Background/background.png");
+	RESOURCE.LoadTexture("tree", "Texture/System/Background/tree.png");
+
+	// オブジェクト
 	RESOURCE.LoadTexture("player", "Texture/Object/Player/Player.png");
 	RESOURCE.LoadTexture("dot", "Texture/System/dot.png");
-	RESOURCE.LoadTexture("box", "Texture/System/box.png");
-	RESOURCE.LoadTexture("troll", "Texture/Object/Enemy/troll.png");
+	RESOURCE.LoadTexture("troll", "Texture/Object/Enemy/Goblin.png");
+	RESOURCE.LoadTexture("troll1", "Texture/Object/Enemy/orc1_attack_full.png");
+	RESOURCE.LoadTexture("troll2", "Texture/Object/Enemy/orc1_run_full.png");
+	RESOURCE.LoadTexture("troll3", "Texture/Object/Enemy/knock.png");
+
 	RESOURCE.LoadTexture("stone", "Texture/Object/Item/stone.png");
 	RESOURCE.LoadTexture("bomb", "Texture/Object/Item/bomb.png");
 	RESOURCE.LoadTexture("explosion", "Texture/Object/Item/explosion.png");
-	RESOURCE.LoadTexture("forest", "Texture/System/background.png");
-	RESOURCE.LoadTexture("shadow", "Texture/Object/shadow.png");
+	RESOURCE.LoadTexture("effect1", "Texture/Object/Item/effect1.png");
 
-	RESOURCE.LoadTexture("logo", "Texture/System/Title/TitleLogo.png");
+	RESOURCE.LoadTexture("fence", "Texture/Object/fence.png");
+	//RESOURCE.LoadTexture("wall", "Texture/System/Game/wall_transparent.png");
+
+	RESOURCE.LoadTexture("shadow", "Texture/Object/shadow.png");
+	
+	// UI
+	RESOURCE.LoadTexture("logo", "Texture/System/Title/title.png");
 	RESOURCE.LoadTexture("titleUI", "Texture/System/Title/ClickToStart.png");
+	RESOURCE.LoadTexture("box", "Texture/System/box.png");
+	RESOURCE.LoadTexture("box_Hi", "Texture/System/box_.png");
+	RESOURCE.LoadTexture("torch", "Texture/System/Title/torch.png");
 
 	RESOURCE.LoadTexture("number", "Texture/System/Game/number.png");
+	RESOURCE.LoadTexture("mouse", "Texture/System/Game/mouse.png");
+	RESOURCE.LoadTexture("wall", "Texture/System/Game/wooden.png");
+	RESOURCE.LoadTexture("L", "Texture/System/Game/tIcom.png");
+	RESOURCE.LoadTexture("R", "Texture/System/Game/cIcom.png");
+
+	
 
 	
 }

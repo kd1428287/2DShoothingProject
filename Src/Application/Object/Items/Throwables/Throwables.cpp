@@ -24,6 +24,14 @@ void Throwables::ThrowStart(Math::Vector2 startPos, float dirAngle, float power)
 	thParameter.state = ThrowState::Throw; // ”òãÄó‘Ô‚ÖØ‚è‘Ö‚¦
 }
 
+void Throwables::OnCollision(Collider* self, const HitResult& hit)
+{
+	if (hit.other->GetLayer() == CollisionLayer::EnemyBody)
+	{
+		hit.other->GetOwner()->Damage(3);
+	}
+}
+
 void Throwables::Update(float dt)
 {
 	if (isDead_) return;

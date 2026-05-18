@@ -1,20 +1,19 @@
 #pragma once
-#include "../Enemy.h" // BaseEnemyを継承するため
+#include "../Enemy.h"
 
-class Goblin : public BaseEnemy
-{
+class Goblin : public BaseEnemy {
 public:
 	Goblin() {};
-	~Goblin() override;
-
 	void SetParameter() override;
 	void Init() override;
+	void DrawRequest()override;
+	void OnCollision(Collider* self, const HitResult& hit) override;
 
 protected:
-	// ゴブリン固有の移動ロジックのみをオーバーライド
 	void WalkUpdate(float dt) override;
+	void AttackUpdate(float dt) override;
 
 private:
-	float shapeCount = 0.0f;
-	float shape = 2.0f; // 元のGoblin.cppにあった揺れ幅変数
+	
+	float rectSize = 64.0f;
 };

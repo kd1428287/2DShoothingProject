@@ -26,10 +26,10 @@ void Player::Init()
     body->SetCircle(32.0f);
     AddCollider(std::move(body));
 
-    objParameter.position = { 0.0f,-300.0f };
+    objParameter.position = { 0.0f,-350.0f };
     objParameter.scale = { 1.3f, 1.3f };
     objParameter.size = { 52.0f, 64.0f };
-    objParameter.priority = -0.05f;
+    objParameter.priority = 1.0f;
 
     HP = 3;
 
@@ -73,7 +73,7 @@ void Player::Update(float dt)
 }
 void Player::DrawRequest()
 {
-    BaseObject::DrawRequest();
+    //BaseObject::DrawRequest();
 
     // ★変更：手持ちアイテムの描画（チャージ中の予測円もアイテム自らが描画します）
     if (hadItem)
@@ -116,6 +116,6 @@ void Player::SelectItem()
     }
    
     hadItem = ItemManager::Instance().CreateItem(nowItem);
-    Math::Vector2 pos = objParameter.position + Math::Vector2(36.0f,0.0f);
+    Math::Vector2 pos = objParameter.position;// +Math::Vector2(30.0f, 0.0f);
     hadItem->SetPosition(pos);
 }

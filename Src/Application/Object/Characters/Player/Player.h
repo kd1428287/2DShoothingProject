@@ -30,6 +30,8 @@ public:
 
 	virtual void OnCollision(Collider* self, const HitResult& hit) override;
 
+	ItemType NowItem() { return nowItem; }
+
 private:
 	void SelectItem();
 
