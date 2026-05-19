@@ -24,5 +24,8 @@ private:
 	KdTexture* RTex		= nullptr;
 	KdTexture* LTex		= nullptr;
 	KdTexture* wallTex	= nullptr;
+	KdTexture* viTex	= nullptr;
+	KdTexture* hpTex	= nullptr;
+	float hpRec = 0.0f;
 	
 };

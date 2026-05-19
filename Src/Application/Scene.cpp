@@ -75,6 +75,7 @@ void Scene::Init()
 	// UI
 	RESOURCE.LoadTexture("logo", "Texture/System/Title/title.png");
 	RESOURCE.LoadTexture("titleUI", "Texture/System/Title/ClickToStart.png");
+	RESOURCE.LoadTexture("resultUI", "Texture/System/Title/resultText.png");
 	RESOURCE.LoadTexture("box", "Texture/System/box.png");
 	RESOURCE.LoadTexture("box_Hi", "Texture/System/box_.png");
 	RESOURCE.LoadTexture("torch", "Texture/System/Title/torch.png");
@@ -84,6 +85,8 @@ void Scene::Init()
 	RESOURCE.LoadTexture("wall", "Texture/System/Game/wooden.png");
 	RESOURCE.LoadTexture("L", "Texture/System/Game/tIcom.png");
 	RESOURCE.LoadTexture("R", "Texture/System/Game/cIcom.png");
+	RESOURCE.LoadTexture("Village", "Texture/System/Game/Village.png");
+	RESOURCE.LoadTexture("HP", "Texture/System/Game/HP.png");
 
 	
 

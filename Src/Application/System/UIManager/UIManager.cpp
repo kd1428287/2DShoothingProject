@@ -76,42 +76,42 @@ namespace {
 	// ========================================================
 	// 2. 残り耐久力表示用UIオブジェクト（左揃え）
 	// ========================================================
-	class HpUI : public BaseObject
-	{
-	public:
-		HpUI() {}
-		~HpUI() override {}
+	//class HpUI : public BaseObject
+	//{
+	//public:
+	//	HpUI() {}
+	//	~HpUI() override {}
 
-		void Init() override
-		{
-			objParameter.tex = RESOURCE.GetTexture("player"); // 耐久力用アイコン
-			objParameter.target = DrawTarget::UI;
-		}
+	//	void Init() override
+	//	{
+	//		objParameter.tex = RESOURCE.GetTexture("player"); // 耐久力用アイコン
+	//		objParameter.target = DrawTarget::UI;
+	//	}
 
-		void DrawRequest() override
-		{
-			int currentHP = PlayerManager::Instance().GetPlayer()->GetHP();
+	//	void DrawRequest() override
+	//	{
+	//		int currentHP = PlayerManager::Instance().GetPlayer()->GetHP();
 
-			ObjectData data;
-			data.tex = objParameter.tex;
-			data.target = DrawTarget::UI;
-			data.size = { 48.0f, 48.0f };
-			data.scale = { 1.0f, 1.0f };
-			data.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	//		ObjectData data;
+	//		data.tex = objParameter.tex;
+	//		data.target = DrawTarget::UI;
+	//		data.size = { 48.0f, 48.0f };
+	//		data.scale = { 1.0f, 1.0f };
+	//		data.color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-			// 左上の基準座標（一番左のアイコンの位置）
-			Math::Vector2 startPos = { -580.0f, 320.0f };
-			float iconSpacing = 50.0f; // アイコン同士の並び間隔
+	//		// 左上の基準座標（一番左のアイコンの位置）
+	//		Math::Vector2 startPos = { -580.0f, 320.0f };
+	//		float iconSpacing = 50.0f; // アイコン同士の並び間隔
 
-			// 左揃えで右に向かってアイコンを並べて描画
-			for (int i = 0; i < currentHP; ++i)
-			{
-				data.position = { startPos.x + (i * iconSpacing), startPos.y };
-				data.rectPosition = { 0.0f, 0.0f };
-				RENDERM.Submit(data);
-			}
-		}
-	};
+	//		// 左揃えで右に向かってアイコンを並べて描画
+	//		for (int i = 0; i < currentHP; ++i)
+	//		{
+	//			data.position = { startPos.x + (i * iconSpacing), startPos.y };
+	//			data.rectPosition = { 0.0f, 0.0f };
+	//			RENDERM.Submit(data);
+	//		}
+	//	}
+	//};
 
 	// ========================================================
 	// 3. アイテムスロット表示用UIオブジェクト
@@ -256,6 +256,82 @@ namespace {
 		float currentScale_ = 3.0f;
 	};
 
+	class  ResultTextUI : public BaseObject
+	{
+	public:
+		ResultTextUI() {};
+		~ResultTextUI() {};
+
+		void Init()override
+		{
+			objParameter.tex = RESOURCE.GetTexture("resultUI");
+			torchTex_ = RESOURCE.GetTexture("torch");
+			mousePos = { 0.0f,0.0f };
+
+			objParameter.target = DrawTarget::UI;
+
+			// ★変数の初期化
+			alpha_ = 0.0f;
+			timer_ = 0.0f;
+			startTimer_ = 2.5f;
+		}
+
+		void Update(float dt) override
+		{
+			if (startTimer_ > 0.0f)
+			{
+				startTimer_ -= dt;
+			}
+			else
+			{
+				// タイマーを進める（掛ける数値を変えると点滅スピードが変わります）
+				timer_ += dt * 2.0f;
+
+				// sin関数を使って 0.2f ～ 1.0f の間を滑らかに往復させる
+				// （完全に消えず、少しだけ見える状態から不透明に戻るループです）
+				// ※完全に消したい場合は alpha_ = 0.5f + 0.5f * sinf(timer_); にしてください
+				alpha_ = 0.6f + 0.4f * sinf(timer_);
+			}
+
+			mousePos = INPUT.GetMousePos();
+		}
+
+		void DrawRequest() override
+		{
+			ObjectData data;
+			data.tex = objParameter.tex;
+			data.target = DrawTarget::UI;
+			data.color = { 1.0f, 1.0f, 1.0f, alpha_ };
+			data.size = { 457.0f, 91.0f };
+			data.scale = { 1.0f, 1.0f };
+			data.position = { 0.0f, -250.0f };
+			data.rectPosition = { 0.0f, 0.0f };
+			RENDERM.Submit(data);
+
+			if (torchTex_)
+			{
+				data.color.w = 1.0f;
+				data.tex = torchTex_;
+				data.size = { 1024.0f,1024.0f };
+				data.scale = { 1.0f / 16.0f,1.0f / 16.0f };
+				data.priority = 2.0f;
+				data.position = mousePos;
+				if (INPUT.IsPressed(VK_LBUTTON))data.angle = 120.0f;
+				else data.angle = 0.0f;
+				RENDERM.Submit(data);
+			}
+		}
+
+	private:
+		Math::Vector2 mousePos{};
+
+		KdTexture* torchTex_ = nullptr;
+
+		float alpha_ = 1.0f;
+		float timer_ = 0.0f;
+		float startTimer_ = 2.0f;
+	};
+
 	// ========================================================
 	// 5. タイトル画面表示用UIオブジェクト
 	// ========================================================
@@ -279,6 +355,7 @@ namespace {
 			alpha_ = 1.0f;
 			timer_ = 0.0f;
 		}
+
 
 		// ★追加：毎フレームの更新処理で透明度を計算
 		void Update(float dt) override
@@ -335,6 +412,7 @@ namespace {
 				data.tex = torchTex_;
 				data.size = { 1024.0f,1024.0f };
 				data.scale = { 1.0f / 16.0f,1.0f / 16.0f };
+				data.priority = 2.0f;
 				data.position = mousePos;
 				if (INPUT.IsPressed(VK_LBUTTON))data.angle = 120.0f;
 				else data.angle = 0.0f;
@@ -379,11 +457,6 @@ void UIManager::CreateUI(ScenePaturn type)
 		scoreUI->Init();
 		uiObjects_.push_back(std::move(scoreUI));
 
-		// 2. 耐久力表示の作成と登録
-		auto hpUI = std::make_unique<HpUI>();
-		hpUI->Init();
-		uiObjects_.push_back(std::move(hpUI));
-
 		// 3. アイテムスロット表示の作成と登録
 		auto itemSlotUI = std::make_unique<ItemSlotUI>();
 		itemSlotUI->Init();
@@ -397,6 +470,10 @@ void UIManager::CreateUI(ScenePaturn type)
 		auto resultScoreUI = std::make_unique<ResultScoreUI>();
 		resultScoreUI->Init();
 		uiObjects_.push_back(std::move(resultScoreUI));
+
+		auto resultTextUI = std::make_unique<ResultTextUI>();
+		resultTextUI->Init();
+		uiObjects_.push_back(std::move(resultTextUI));
 
 		break;
 	}

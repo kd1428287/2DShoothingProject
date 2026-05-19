@@ -18,6 +18,8 @@ void ItemSlotUI::Init()
 	RTex = RESOURCE.GetTexture("R");
 	LTex = RESOURCE.GetTexture("L");
 	wallTex = RESOURCE.GetTexture("wall");
+	viTex = RESOURCE.GetTexture("Village");
+	hpTex = RESOURCE.GetTexture("HP");
 
 	displayCount = 3.0f;
 }
@@ -32,6 +34,8 @@ void ItemSlotUI::Update(float dt)
 	{
 		displayCount = 1.0f;
 	}
+
+	hpRec = 10 - PlayerManager::Instance().GetPlayer()->GetHP();
 }
 
 void ItemSlotUI::DrawRequest()
@@ -116,7 +120,7 @@ void ItemSlotUI::DrawRequest()
 	data.tex = MouseTex;
 	data.size = { 64.0f,64.0f };
 	data.color.w = 1.0f;
-	data.position = { -600.0f,-250.0f };
+	data.position = { -600.0f,-120.0f };
 
 	RENDERM.Submit(data);
 
@@ -129,7 +133,7 @@ void ItemSlotUI::DrawRequest()
 	data.rectPosition = { 0.0f,0.0f };
 	data.scale = { 0.8f,0.8f };
 	data.size = { 96.0f,96.0f };
-	data.position = { -540.0f,-250.0f };
+	data.position = { -540.0f,-120.0f };
 
 	RENDERM.Submit(data);
 
@@ -139,12 +143,29 @@ void ItemSlotUI::DrawRequest()
 	RENDERM.Submit(data);
 
 	data.tex = wallTex;
-	data.position = { 0.0f,-480.0f};
+	data.position = { 0.0f,-440.0f};
 	data.size = { 964,1024 };
 	data.scale = { 1.0f,1.0f };
 	data.footPosition = -500.0f;
 	data.target = DrawTarget::middle;
 	data.priority = 0;
 
+	RENDERM.Submit(data);
+
+	data.tex = viTex;
+	data.position = { -580.0f,-290.0f };
+	data.size = { 1024.0f,1024.0f };
+	data.scale = { 0.1f,0.1f };
+	data.target = DrawTarget::UI;
+	data.priority = 1.0f;
+
+	RENDERM.Submit(data);
+
+	data.tex = hpTex;
+	data.position = { -360.0f,-320.0f };
+	data.size = { 792,93 };
+	data.scale = { 0.45f,0.45f };
+	data.priority = 0.0f;
+	data.rectPosition = { 0.0f,hpRec * 93 };
 	RENDERM.Submit(data);
 }

@@ -31,7 +31,7 @@ void Player::Init()
     objParameter.size = { 52.0f, 64.0f };
     objParameter.priority = 1.0f;
 
-    HP = 3;
+    HP = 0;
 
     nowItem = ItemType::Stone;
     SelectItem();

@@ -39,7 +39,7 @@ void ItemManager::CreateBarrier()
 	{
 		fence = std::make_unique<Fence>();
 		fence->Init();
-		fence->SetPosition(Math::Vector2(x,-250.0f));
+		fence->SetPosition(Math::Vector2(x,-210.0f));
 
 		result = std::move(fence);
 
