@@ -89,7 +89,7 @@ void Goblin::AttackUpdate(float dt)
 			anim = 0.0f;
 			isAttack = false;
 		}
-		else if(anim)
+		
 	}
 
 	

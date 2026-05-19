@@ -63,7 +63,7 @@ void BaseEnemy::AttackUpdate(float dt)
 	attackTimer_ -= dt;
 	if (attackTimer_ <= 0.0f) {
 		if (attackCollider_) {
-			
+			attackCollider_->SetEnable(true);
 			attackActiveTimer_ = attackActiveDuration_;
 		}
 		attackTimer_ = attackInterval_ + attackActiveDuration_;

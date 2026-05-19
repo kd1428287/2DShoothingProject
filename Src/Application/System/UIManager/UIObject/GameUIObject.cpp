@@ -154,9 +154,12 @@ void ItemSlotUI::DrawRequest()
 
 	data.tex = viTex;
 	data.position = { -580.0f,-290.0f };
-	data.size = { 1024.0f,1024.0f };
-	data.scale = { 0.1f,0.1f };
+	//data.size = { 1024.0f,1024.0f };
+	data.size = { 96.0f,96.0f };
+	//data.scale = { 0.1f,0.1f };
+	data.scale = { 1.0f,1.0f };
 	data.target = DrawTarget::UI;
+	data.color = { 1.0f,1.0f,1.0f,1.0f };
 	data.priority = 1.0f;
 
 	RENDERM.Submit(data);

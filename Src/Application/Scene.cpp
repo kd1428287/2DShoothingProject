@@ -85,7 +85,7 @@ void Scene::Init()
 	RESOURCE.LoadTexture("wall", "Texture/System/Game/wooden.png");
 	RESOURCE.LoadTexture("L", "Texture/System/Game/tIcom.png");
 	RESOURCE.LoadTexture("R", "Texture/System/Game/cIcom.png");
-	RESOURCE.LoadTexture("Village", "Texture/System/Game/Village.png");
+	RESOURCE.LoadTexture("Village", "Texture/System/Game/Village1.png");
 	RESOURCE.LoadTexture("HP", "Texture/System/Game/HP.png");
 
 	
