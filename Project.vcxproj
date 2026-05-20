@@ -180,6 +180,7 @@
     <ClInclude Include="Src\Application\Scene\ResultScene\ResultScene.h" />
     <ClInclude Include="Src\Application\Scene\SceneManager.h" />
     <ClInclude Include="Src\Application\Scene\TitleScene\TitleScene.h" />
+    <ClInclude Include="Src\Application\System\AudioManager\AudioManager.h" />
     <ClInclude Include="Src\Application\System\CollisionManager\Collider.h" />
     <ClInclude Include="Src\Application\System\CollisionManager\CollisionHitResult.h" />
     <ClInclude Include="Src\Application\System\CollisionManager\CollisionLayer.h" />
@@ -237,6 +238,7 @@
     <ClCompile Include="Src\Application\Scene\ResultScene\ResultScene.cpp" />
     <ClCompile Include="Src\Application\Scene\SceneManager.cpp" />
     <ClCompile Include="Src\Application\Scene\TitleScene\TitleScene.cpp" />
+    <ClCompile Include="Src\Application\System\AudioManager\AudioManager.cpp" />
     <ClCompile Include="Src\Application\System\CollisionManager\Collider.cpp" />
     <ClCompile Include="Src\Application\System\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="Src\Application\System\EffectManager\EffectManager.cpp" />

@@ -115,6 +115,9 @@
     <Filter Include="Src\Application\System\UIManager\UIObject">
       <UniqueIdentifier>{91fee358-f575-49cc-bc64-616548753918}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\System\AudioManager">
+      <UniqueIdentifier>{9f852fa8-ea0d-40a4-ba0c-8b0870dd2676}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -312,6 +315,9 @@
     <ClInclude Include="Src\Application\System\UIManager\UIObject\GameUIObject.h">
       <Filter>Src\Application\System\UIManager\UIObject</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\System\AudioManager\AudioManager.h">
+      <Filter>Src\Application\System\AudioManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -460,6 +466,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\System\UIManager\UIObject\GameUIObject.cpp">
       <Filter>Src\Application\System\UIManager\UIObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\System\AudioManager\AudioManager.cpp">
+      <Filter>Src\Application\System\AudioManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
