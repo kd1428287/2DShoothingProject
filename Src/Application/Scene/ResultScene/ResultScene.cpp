@@ -5,6 +5,7 @@
 #include "Application/Scene/SceneManager.h"
 #include "Application/System/InputManager/InputManager.h"
 #include "Application/System/UIManager/UIManager.h"
+#include "Application/System/AudioManager/AudioManager.h"
 #include "Application/Object/ObjectManager.h"
 
 
@@ -16,6 +17,8 @@
 void ResultScene::Init()
 {
 	UIManager::Instance().CreateUI(ScenePaturn::Result);
+	//AUDIOM.PlayBgm("result");
+	AUDIOM.FadeOutAndPlayNext("drum", 0.1f, 0.1f, true);
 }
 
 void ResultScene::PreUpdate(float dt)
@@ -29,7 +32,13 @@ void ResultScene::Update(float dt)
 	UIManager::Instance().Update(dt);
 	RenderManager::Instance().Update();
 	//EnemyManager::Instance().EnemyRangeCheack();
-	if (INPUT.IsTriggered(VK_LBUTTON) && UIManager::Instance().IsResultScoreDone())SCENEMANAGER.RequestSceneChange(SceneType::Title);
+
+	if (INPUT.IsTriggered(VK_LBUTTON) && UIManager::Instance().IsResultScoreDone())
+	{
+		SCENEMANAGER.RequestSceneChange(SceneType::Title);
+		AUDIOM.PlaySe("click");
+	}
+	AUDIOM.Update();
 }
 
 void ResultScene::RequestDraw()

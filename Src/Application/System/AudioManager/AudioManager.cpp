@@ -41,43 +41,17 @@ void AudioManager::Init()
 	// 使用するすべての音声をロードしておく
 	LoadSound("title","Sound/fantasy-ihen-.wav");
 	LoadSound("game","Sound/maou_game_dangeon10.wav");
-	LoadSound("boss","Sound/maou_game_boss06.wav");
+	LoadSound("drum","");
+	LoadSound("result","");
+	LoadSound("fanfare","");
+	LoadSound("exprosion","");
+	LoadSound("damage1","");
 	LoadSound("damage","Sound/dageki.wav");
-	LoadSound("heal","Sound/kaihuku.wav");
-	LoadSound("slash","Sound/slash.wav");
-	LoadSound("equip","Sound/equip.wav");
-	LoadSound("shot","Sound/shot.wav");
-	LoadSound("stab", "Sound/弓矢を放つ.wav");
-	LoadSound("kick", "Sound/キックの素振り1.wav");
-	LoadSound("dash", "Sound/キックの素振り2.wav");
-	LoadSound("button", "Sound/決定ボタンを押す2.wav");
-	LoadSound("expGet", "Sound/決定ボタンを押す35.wav");
-	LoadSound("itemDrop", "Sound/決定ボタンを押す41.wav");
-	LoadSound("exp", "Sound/決定ボタンを押す49.wav");
-	LoadSound("alert", "Sound/kettei.wav");
-	LoadSound("warning", "Sound/warning.wav");
-	LoadSound("landing", "Sound/怪獣の足音.wav");
-	LoadSound("jump", "Sound/ジャンプ.wav");
-	LoadSound("boss_dead", "Sound/地震魔法1.wav");
-	LoadSound("circle", "Sound/ステータス上昇魔法2.wav");
-	LoadSound("warp", "Sound/ワープ.wav");
-	LoadSound("drink","Sound/飲む (mp3cut.net).wav");
-	LoadSound("lvUp","Sound/可愛く輝く1.wav");
-	LoadSound("bomb", "Sound/bomb004-_1_.wav");
-	LoadSound("hover1", "Sound/カーソル移動4.wav");
-	LoadSound("hover2", "Sound/カーソル移動9.wav");
-	LoadSound("enter", "Sound/決定ボタンを押す18.wav");
-	LoadSound("lvUp2", "Sound/シャキーン3.wav");
+	LoadSound("click", "Sound/決定ボタンを押す18.wav");
 	LoadSound("hit1", "Sound/小パンチ.wav");
 	LoadSound("hit2", "Sound/小キック.wav");
 	LoadSound("hit3", "Sound/中パンチ.wav");
 	LoadSound("hit4", "Sound/ショット命中.wav");
-	LoadSound("difence", "Sound/盾で防御.wav");
-	LoadSound("spin_slash", "Sound/大剣で斬る.wav");
-	LoadSound("shield_place", "Sound/全力で踏み込む.wav");
-	LoadSound("shield_break", "Sound/石が砕ける.wav");
-	//LoadSound("shield_break", "Sound/剣で打ち合う3.wav");
-	LoadSound("shield_equip", "Sound/鞘を持つ.wav");
 }	
 
 void AudioManager::Update()

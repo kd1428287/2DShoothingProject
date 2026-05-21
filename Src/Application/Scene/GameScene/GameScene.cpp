@@ -6,6 +6,7 @@
 #include "Application/System/InputManager/InputManager.h"
 #include "Application/System/UIManager/UIManager.h"
 #include "Application/System/ScoreManager/ScoreManager.h"
+#include "Application/System/AudioManager/AudioManager.h"
 #include "Application/Object/ObjectManager.h"
 
 
@@ -26,6 +27,8 @@ void GameScene::Init()
 	ItemManager::Instance().CreateBarrier();
 
 	UIManager::Instance().CreateUI(ScenePaturn::Game);
+	//AUDIOM.PlayBgm("game");
+	AUDIOM.FadeOutAndPlayNext("game", 1.0f, 1.0f, true);
 }
 
 void GameScene::PreUpdate(float dt)
@@ -42,6 +45,7 @@ void GameScene::Update(float dt)
 	UIManager::Instance().Update(dt);
 	EnemyManager::Instance().EnemyRangeCheack();
 	RenderManager::Instance().Update();
+	AUDIOM.Update();
 	if (INPUT.IsTriggered('Z'))SCENEMANAGER.RequestSceneChange(SceneType::Title);
 	if (INPUT.IsTriggered('X'))SCENEMANAGER.RequestSceneChange(SceneType::Result);
 }

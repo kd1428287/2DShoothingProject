@@ -35,6 +35,7 @@ protected:
 	float attackActiveTimer_ = 0.0f;
 	bool isTouchingBarrier_ = false;
 	bool isAttack = false;
+	bool isHit = false;
 
 	// ★修正: 配列のインデックス依存をなくすため、それぞれのポインタを保持する
 	Collider* bodyCollider_ = nullptr;

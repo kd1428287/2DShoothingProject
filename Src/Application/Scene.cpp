@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Application/System/ResourceManager/ResourceManager.h"
 #include "Scene/SceneManager.h"
+#include "Application/System/AudioManager/AudioManager.h"
 
 void Scene::Draw2D()
 {
@@ -88,7 +89,7 @@ void Scene::Init()
 	RESOURCE.LoadTexture("Village", "Texture/System/Game/Village1.png");
 	RESOURCE.LoadTexture("HP", "Texture/System/Game/HP.png");
 
-	
+	AUDIOM.Init();
 
 	
 }

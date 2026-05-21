@@ -2,6 +2,7 @@
 #include "Application/System/ResourceManager/ResourceManager.h"
 #include "Application/System/CollisionManager/Collider.h"
 #include "Application/System/CollisionManager/CollisionManager.h"
+#include "Application/System/AudioManager/AudioManager.h"
 #include "Application/Object/ObjectManager.h"
 
 void Goblin::SetParameter() {
@@ -46,7 +47,6 @@ void Goblin::OnCollision(Collider* self, const HitResult& hit)
 
 	// 1. バリア接触判定
 	if (hit.other->GetLayer() == CollisionLayer::Barrier) {
-		// ★改善ポイント：毎フレーム true を上書きすることで Update 側のリセットに対抗する
 		isTouchingBarrier_ = true;
 
 		if (state_ == EnemyState::Walk) {
@@ -64,6 +64,8 @@ void Goblin::OnCollision(Collider* self, const HitResult& hit)
 		if (target) {
 			target->Damage(self->GetDamage());
 			attackCollider_->SetEnable(false);
+			isHit = false;
+			AUDIOM.PlaySe("hit1");
 		}
 	}
 }
@@ -88,6 +90,11 @@ void Goblin::AttackUpdate(float dt)
 		{
 			anim = 0.0f;
 			isAttack = false;
+		}
+		else if (!isHit && anim >= 2.0f)
+		{
+			isHit = true;
+			attackCollider_->SetEnable(true);
 		}
 		
 	}

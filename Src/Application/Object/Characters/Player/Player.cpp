@@ -6,6 +6,8 @@
 #include "Application/Scene/SceneManager.h"
 #include "Application/Object/BaseObject.h"
 #include "Application/Object/ObjectManager.h"
+#include "Application/System/AudioManager/AudioManager.h"
+
 
 // アイテム関連
 #include "../../Items/ItemManager.h"
@@ -88,6 +90,7 @@ void Player::Damage()
     if (Speach)return;
     
     HP--;
+    AUDIOM.PlaySe("damage1");
 
     if (HP <= 0)
     {

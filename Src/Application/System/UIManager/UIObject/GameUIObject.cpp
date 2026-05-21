@@ -2,6 +2,7 @@
 #include "Application/System/ResourceManager/ResourceManager.h"
 #include "Application/System/InputManager/InputManager.h"
 #include "Application/System/RenderManager/RenderManager.h"
+#include "Application/System/AudioManager/AudioManager.h"
 #include "Application/Object/ObjectManager.h"
 #include "Application/Object/Items/ItemManager.h"
 #include "Application/Object/Characters/Player/PlayerManager.h"

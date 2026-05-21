@@ -5,6 +5,7 @@
 #include "Application/System/ResourceManager/ResourceManager.h"
 #include "Application/System/CollisionManager/CollisionHitResult.h"
 #include "Application/System/EffectManager/EffectManager.h"
+#include "Application/System/AudioManager/AudioManager.h"
 #include <cmath>
 
 void Stone::Init()
@@ -124,6 +125,8 @@ void Stone::Update(float dt)
 			SetPosition(targetPos); // バウンドの基準位置を着弾点に設定
 			objParameter.scale = { 1.0f, 1.0f };
 			objParameter.floating = 0.0f; // 着地
+
+			AUDIOM.PlaySe("hit2");
 
 			// 着弾した瞬間に当たり判定をオン
 			if (!colliders_.empty()) {

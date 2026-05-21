@@ -4,6 +4,7 @@
 #include "Application/System/CollisionManager/CollisionManager.h"
 #include "Application/System/RenderManager/RenderManager.h"
 #include "Application/System/ResourceManager/ResourceManager.h"
+#include "Application/System/AudioManager/AudioManager.h"
 #include <cmath>
 
 void Bomb::Init()
@@ -110,6 +111,8 @@ void Bomb::StartExplosion()
 		objParameter.color = { 1.0f, 0.3f, 0.1f, 1.0f };
 	}
 
+	AUDIOM.PlaySe("exprosion");
+
 	objParameter.scale = { 6.5f, 6.5f };
 	objParameter.angle = 0.0f;
 	objParameter.flashValue = 0.0f;
@@ -206,6 +209,8 @@ void Bomb::Update(float dt)
 			SetPosition(targetPos);
 			objParameter.scale = { 1.0f, 1.0f };
 			objParameter.floating = 0.0f; // ’…’n
+
+			AUDIOM.PlaySe("hit2");
 
 			thParameter.state = ThrowState::Point;
 			bounceTimer = MAX_BOUNCE_TIME;

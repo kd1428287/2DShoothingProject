@@ -8,6 +8,7 @@
 #include "Application/Object/Characters/Player/Player.h"
 #include "Application/Object/Items/ItemManager.h"
 #include "Application/System/UIManager/UIObject/GameUIObject.h"
+#include "Application/System/AudioManager/AudioManager.h"
 
 namespace {
 
@@ -157,6 +158,10 @@ namespace {
 
 					// ★カウントアップ完了時にシーンへ通知を出せるようフラグをONにする
 					UIManager::Instance().SetResultScoreDone(true);
+
+					AUDIOM.FadeOutBgm(0.0f);
+					AUDIOM.PlaySe("fanfare");
+					AUDIOM.PlayBgm("result", true);
 				}
 				else
 				{

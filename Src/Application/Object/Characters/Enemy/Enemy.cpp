@@ -4,6 +4,7 @@
 #include "Application/System/CollisionManager/Collider.h"
 #include "Application/System/CollisionManager/CollisionManager.h"
 #include "Application/System/ScoreManager/ScoreManager.h"
+#include "Application/System/AudioManager/AudioManager.h"
 #include <cmath>
 
 BaseEnemy::~BaseEnemy() {
@@ -31,6 +32,7 @@ void BaseEnemy::Damage(int damage) {
 	if (invincibleTimer_ > 0.0f || state_ == EnemyState::Dead) return;
 
 	charaParameter.HP -= damage;
+	AUDIOM.PlaySe("damage");
 	invincibleTimer_ = 0.1f;
 	groundPos_ = objParameter.position;
 
@@ -63,7 +65,7 @@ void BaseEnemy::AttackUpdate(float dt)
 	attackTimer_ -= dt;
 	if (attackTimer_ <= 0.0f) {
 		if (attackCollider_) {
-			attackCollider_->SetEnable(true);
+			//attackCollider_->SetEnable(true);
 			attackActiveTimer_ = attackActiveDuration_;
 		}
 		attackTimer_ = attackInterval_ + attackActiveDuration_;
