@@ -67,6 +67,7 @@ void BaseEnemy::AttackUpdate(float dt)
 		if (attackCollider_) {
 			//attackCollider_->SetEnable(true);
 			attackActiveTimer_ = attackActiveDuration_;
+			isHit = false;
 		}
 		attackTimer_ = attackInterval_ + attackActiveDuration_;
 		isAttack = true; // 攻撃のタイミングが来たことを派生クラスに知らせる

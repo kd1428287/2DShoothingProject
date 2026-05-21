@@ -64,7 +64,7 @@ void Goblin::OnCollision(Collider* self, const HitResult& hit)
 		if (target) {
 			target->Damage(self->GetDamage());
 			attackCollider_->SetEnable(false);
-			isHit = false;
+			
 			AUDIOM.PlaySe("hit1");
 		}
 	}
